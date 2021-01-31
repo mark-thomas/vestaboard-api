@@ -5,29 +5,26 @@
  * @param {Object} defaultConfig the default config for the instance
  * @return {Vesta} A new instance of Vesta
  */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
 
-import {
-  characterCode,
-  specialChar,
-  emptyBoard,
-  LINE_LENGTH,
-} from '../src/values';
+import { characterCode, specialChar, emptyBoard, LINE_LENGTH } from './values';
 
 function isSpecial(char: string): boolean {
   return specialChar.includes(char);
 }
-function characterLength(string: string): number {
-  const splitArray = string.split(' ');
-  const length = splitArray.reduce((acc, word) => {
-    acc += isSpecial(word) ? 1 : word.length + 1;
-    return acc;
-  }, 0);
-  return length;
-}
+
+// function characterLength(string: string): number {
+//   const splitArray = string.split(' ');
+//   const length = splitArray.reduce((acc, word) => {
+//     acc += isSpecial(word) ? 1 : word.length + 1;
+//     return acc;
+//   }, 0);
+//   return length;
+// }
+
 function stringToArray(string: string): Array<number> {
   const splitArray = string.split(' ');
-  let charCount: number = 0;
+  let charCount = 0;
   const unsplitLines: Array<number> = splitArray
     .map((word, i) => {
       let elements;
@@ -84,9 +81,10 @@ interface API_Config {
 
 interface API_Options {
   data?: string;
-  method: any;
+  method: Method;
 }
-module.exports = class Vesta {
+
+export default class Vesta {
   api_key: string;
   api_secret: string;
   readonly base_url: string;
@@ -96,36 +94,40 @@ module.exports = class Vesta {
     this.base_url = 'https://platform.vestaboard.com';
   }
 
-  async request(endpoint = '', options: API_Options): Promise<{}> {
-    let url = this.base_url + endpoint;
-    let headers = {
+  async request(
+    endpoint = '',
+    options: API_Options
+  ): Promise<AxiosResponse<any>> {
+    const url = this.base_url + endpoint;
+    const headers = {
       'X-Vestaboard-Api-Key': this.api_key,
       'X-Vestaboard-Api-Secret': this.api_secret,
     };
 
-    let text = options.data;
-    let method = options.method;
+    const text = options.data;
+    const method = options.method;
     console.log('posting: ', { url, headers, options, text, method });
     const config: AxiosRequestConfig = { url, method, headers, data: text };
+
     return axios(config);
   }
 
-  getSubscriptions(): Promise<{}> {
+  getSubscriptions(): Promise<AxiosResponse<any>> {
     const url = '/subscriptions';
-    const options = { method: 'GET' };
+    const options = { method: 'GET' as Method };
     return this.request(url, options);
   }
 
   postMessage(
     subscriptionId: string,
     message: string | Array<number[]>
-  ): Promise<{}> {
+  ): Promise<AxiosResponse<any>> {
     const url = `/subscriptions/${subscriptionId}/message`;
     const data = Array.isArray(message)
       ? JSON.stringify({ characters: message })
       : JSON.stringify({ text: message });
 
-    const options = { method: 'POST', data };
+    const options = { method: 'POST' as Method, data };
     return this.request(url, options);
   }
 
@@ -142,10 +144,14 @@ module.exports = class Vesta {
     return newBoard;
   }
 
-  clearBoardTo(char: any, subscriptionId: string): Promise<{}> {
+  clearBoardTo(
+    char: string,
+    subscriptionId: string
+  ): Promise<AxiosResponse<any>> {
     const clearBoard = emptyBoard.map((line: number[]) =>
-      line.map((bit) => characterCode[char])
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      line.map((_bit) => characterCode[char])
     );
     return this.postMessage(subscriptionId, clearBoard);
   }
-};
+}

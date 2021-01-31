@@ -2,9 +2,15 @@
   "name": "vestaboard-api",
   "version": "1.0.0",
   "description": "vestaboard api wrapper",
-  "main": "index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "files": [
+    "lib/"
+  ],
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run tsc"
   },
   "author": "Mark Thomas <markct@gmail.com>",
   "license": "ISC",
