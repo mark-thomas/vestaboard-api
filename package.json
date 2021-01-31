@@ -1,0 +1,24 @@
+{
+  "name": "vestaboard-api",
+  "version": "1.0.0",
+  "description": "vestaboard api wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Mark Thomas <markct@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "prettier": "2.2.1"
+  }
+}
