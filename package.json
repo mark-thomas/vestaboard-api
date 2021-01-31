@@ -4,6 +4,9 @@
   "description": "vestaboard api wrapper",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "repository": {
+    "url": "https://github.com/mark-thomas/vestaboard-api"
+  },
   "files": [
     "lib/"
   ],
