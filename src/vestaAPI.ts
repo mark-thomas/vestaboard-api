@@ -1,51 +1,54 @@
-"use strict";
+'use strict';
+
 /**
  * Create an instance of Vesta
  * @param {Object} defaultConfig the default config for the instance
  * @return {Vesta} A new instance of Vesta
  */
-import axios from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
+
 import {
   characterCode,
   specialChar,
   emptyBoard,
   LINE_LENGTH,
-} from "../src/values";
-function isSpecial(char) {
+} from '../src/values';
+
+function isSpecial(char: string): boolean {
   return specialChar.includes(char);
 }
-function characterLength(string) {
-  const splitArray = string.split(" ");
+function characterLength(string: string): number {
+  const splitArray = string.split(' ');
   const length = splitArray.reduce((acc, word) => {
     acc += isSpecial(word) ? 1 : word.length + 1;
     return acc;
   }, 0);
   return length;
 }
-function stringToArray(string) {
-  const splitArray = string.split(" ");
-  let charCount = 0;
-  const unsplitLines = splitArray
+function stringToArray(string: string): Array<number> {
+  const splitArray = string.split(' ');
+  let charCount: number = 0;
+  const unsplitLines: Array<number> = splitArray
     .map((word, i) => {
       let elements;
       switch (word) {
-        case "degreeSign":
-        case "redBlock":
-        case "orangeBlock":
-        case "yellowBlock":
-        case "greenBlock":
-        case "blueBlock":
-        case "violetBlock":
-        case "whiteBlock":
-        case "blackBlock":
+        case 'degreeSign':
+        case 'redBlock':
+        case 'orangeBlock':
+        case 'yellowBlock':
+        case 'greenBlock':
+        case 'blueBlock':
+        case 'violetBlock':
+        case 'whiteBlock':
+        case 'blackBlock':
           elements = [characterCode[word]];
           charCount += 1;
           break;
-        case "":
+        case '':
           elements = [0];
           charCount += 1;
           break;
-        case "return":
+        case 'return':
           const charCount_mod_line = charCount % LINE_LENGTH;
           const remaining = LINE_LENGTH - charCount_mod_line;
           if (remaining < LINE_LENGTH) {
@@ -54,9 +57,10 @@ function stringToArray(string) {
           } else {
             elements = [];
           }
+
           break;
         default:
-          elements = word.split("").map((c) => characterCode[c]);
+          elements = word.split('').map((c) => characterCode[c]);
           if (!isSpecial(splitArray[i + 1])) {
             elements.push(0);
           }
@@ -68,45 +72,67 @@ function stringToArray(string) {
   // console.log(unsplitLines);
   return unsplitLines;
 }
-function makeBoard(string) {
+
+function makeBoard(string: string): Array<number> {
   const arrayVersion = stringToArray(string);
   return arrayVersion;
 }
+interface API_Config {
+  api_key: string;
+  api_secret: string;
+}
+
+interface API_Options {
+  data?: string;
+  method: any;
+}
 module.exports = class Vesta {
-  constructor(config) {
+  api_key: string;
+  api_secret: string;
+  readonly base_url: string;
+  constructor(config: API_Config) {
     this.api_key = config.api_key;
     this.api_secret = config.api_secret;
-    this.base_url = "https://platform.vestaboard.com";
+    this.base_url = 'https://platform.vestaboard.com';
   }
-  async request(endpoint = "", options) {
+
+  async request(endpoint = '', options: API_Options): Promise<{}> {
     let url = this.base_url + endpoint;
     let headers = {
-      "X-Vestaboard-Api-Key": this.api_key,
-      "X-Vestaboard-Api-Secret": this.api_secret,
+      'X-Vestaboard-Api-Key': this.api_key,
+      'X-Vestaboard-Api-Secret': this.api_secret,
     };
+
     let text = options.data;
     let method = options.method;
-    console.log("posting: ", { url, headers, options, text, method });
-    const config = { url, method, headers, data: text };
+    console.log('posting: ', { url, headers, options, text, method });
+    const config: AxiosRequestConfig = { url, method, headers, data: text };
     return axios(config);
   }
-  getSubscriptions() {
-    const url = "/subscriptions";
-    const options = { method: "GET" };
+
+  getSubscriptions(): Promise<{}> {
+    const url = '/subscriptions';
+    const options = { method: 'GET' };
     return this.request(url, options);
   }
-  postMessage(subscriptionId, message) {
+
+  postMessage(
+    subscriptionId: string,
+    message: string | Array<number[]>
+  ): Promise<{}> {
     const url = `/subscriptions/${subscriptionId}/message`;
     const data = Array.isArray(message)
       ? JSON.stringify({ characters: message })
       : JSON.stringify({ text: message });
-    const options = { method: "POST", data };
+
+    const options = { method: 'POST', data };
     return this.request(url, options);
   }
-  characterArrayFromString(string) {
+
+  characterArrayFromString(string: string): Array<number[]> {
     const charBoard = makeBoard(string);
     const newBoard = emptyBoard.map((line, row) => {
-      const newLine = line.map((character, col) => {
+      const newLine = line.map((character: string, col: number) => {
         const lineIndex = row * 22;
         const useChar = charBoard[col + lineIndex];
         return useChar || 0;
@@ -115,8 +141,9 @@ module.exports = class Vesta {
     });
     return newBoard;
   }
-  clearBoardTo(char, subscriptionId) {
-    const clearBoard = emptyBoard.map((line) =>
+
+  clearBoardTo(char: any, subscriptionId: string): Promise<{}> {
+    const clearBoard = emptyBoard.map((line: number[]) =>
       line.map((bit) => characterCode[char])
     );
     return this.postMessage(subscriptionId, clearBoard);

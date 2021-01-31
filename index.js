@@ -1,1 +1,1 @@
-module.exports = require('./lib/vestaAPI.js');
+module.exports = require("./lib/vestaAPI.js");
