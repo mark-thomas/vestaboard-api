@@ -1,7 +1,7 @@
 {
   "name": "vestaboard-api",
   "version": "1.0.0",
-  "description": "vestaboard api wrapper",
+  "description": "vestaboard api wrapper node/ts",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "repository": {
