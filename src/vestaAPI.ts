@@ -83,21 +83,21 @@ interface API_Options {
   data?: string;
   method: Method;
 }
-
+interface IBoard_Array {
+  [index: number]: Array<number>;
+}
 export default class Vesta {
   api_key: string;
   api_secret: string;
   readonly base_url: string;
+
   constructor(config: API_Config) {
     this.api_key = config.api_key;
     this.api_secret = config.api_secret;
     this.base_url = 'https://platform.vestaboard.com';
   }
 
-  async request(
-    endpoint = '',
-    options: API_Options
-  ): Promise<AxiosResponse<any>> {
+  async request(endpoint = '', options: API_Options): Promise<any> {
     const url = this.base_url + endpoint;
     const headers = {
       'X-Vestaboard-Api-Key': this.api_key,
@@ -106,13 +106,13 @@ export default class Vesta {
 
     const text = options.data;
     const method = options.method;
-    console.log('posting: ', { url, headers, options, text, method });
+    // console.log('posting: ', { url, headers, options, text, method });
     const config: AxiosRequestConfig = { url, method, headers, data: text };
 
-    return axios(config);
+    return axios(config).then((r: AxiosResponse<any>) => r.data);
   }
 
-  getSubscriptions(): Promise<AxiosResponse<any>> {
+  getSubscriptions(): Promise<Record<string, unknown>> {
     const url = '/subscriptions';
     const options = { method: 'GET' as Method };
     return this.request(url, options);
@@ -121,7 +121,7 @@ export default class Vesta {
   postMessage(
     subscriptionId: string,
     message: string | Array<number[]>
-  ): Promise<AxiosResponse<any>> {
+  ): Promise<Record<string, unknown>> {
     const url = `/subscriptions/${subscriptionId}/message`;
     const data = Array.isArray(message)
       ? JSON.stringify({ characters: message })
@@ -130,14 +130,16 @@ export default class Vesta {
     const options = { method: 'POST' as Method, data };
     return this.request(url, options);
   }
-  getViewer(): Promise<AxiosResponse<any>> {
+
+  getViewer(): Promise<Record<string, unknown>> {
     const url = '/viewer';
     const options = { method: 'GET' as Method };
     return this.request(url, options);
   }
-  characterArrayFromString(string: string): Array<number[]> {
+
+  characterArrayFromString(string: string): IBoard_Array {
     const charBoard = makeBoard(string);
-    const newBoard = emptyBoard.map((line, row) => {
+    const newBoard: IBoard_Array = emptyBoard.map((line, row) => {
       const newLine = line.map((character: string, col: number) => {
         const lineIndex = row * 22;
         const useChar = charBoard[col + lineIndex];
@@ -151,7 +153,7 @@ export default class Vesta {
   clearBoardTo(
     char: string,
     subscriptionId: string
-  ): Promise<AxiosResponse<any>> {
+  ): Promise<Record<string, unknown>> {
     const clearBoard = emptyBoard.map((line: number[]) =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       line.map((_bit) => characterCode[char])
