@@ -20,6 +20,7 @@ export default class Vesta {
     request(endpoint: string | undefined, options: API_Options): Promise<AxiosResponse<any>>;
     getSubscriptions(): Promise<AxiosResponse<any>>;
     postMessage(subscriptionId: string, message: string | Array<number[]>): Promise<AxiosResponse<any>>;
+    getViewer(): Promise<AxiosResponse<any>>;
     characterArrayFromString(string: string): Array<number[]>;
     clearBoardTo(char: string, subscriptionId: string): Promise<AxiosResponse<any>>;
 }

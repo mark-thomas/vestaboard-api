@@ -130,7 +130,11 @@ export default class Vesta {
     const options = { method: 'POST' as Method, data };
     return this.request(url, options);
   }
-
+  getViewer(): Promise<AxiosResponse<any>> {
+    const url = '/viewer';
+    const options = { method: 'GET' as Method };
+    return this.request(url, options);
+  }
   characterArrayFromString(string: string): Array<number[]> {
     const charBoard = makeBoard(string);
     const newBoard = emptyBoard.map((line, row) => {
