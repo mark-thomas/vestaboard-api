@@ -13,7 +13,8 @@
   "scripts": {
     "test": "test",
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-    "prepublish": "npm run tsc"
+    "prepublish": "npm run tsc",
+    "build": "npm run tsc"
   },
   "author": "Mark Thomas <markct@gmail.com>",
   "license": "ISC",

@@ -6,7 +6,6 @@
  * @return {Vesta} A new instance of Vesta
  */
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
-
 import {
   characterCode,
   specialChar,
@@ -47,7 +46,7 @@ export default class Vesta {
     return axios(config);
   }
 
-  public async getSubscriptions(): Promise<Subscription[]> {
+  async getSubscriptions(): Promise<Subscription[]> {
     const url = '/subscriptions';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
@@ -55,7 +54,7 @@ export default class Vesta {
     return subscriptions as Subscription[];
   }
 
-  public async postMessage(
+  async postMessage(
     subscriptionId: string,
     postMessage: string | BoardCharArray
   ): Promise<MessageResponse> {
@@ -70,7 +69,7 @@ export default class Vesta {
     return message as MessageResponse;
   }
 
-  public async getViewer(): Promise<ViewerResponse> {
+  async getViewer(): Promise<ViewerResponse> {
     const url = '/viewer';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
@@ -83,7 +82,7 @@ export default class Vesta {
     return charBoard;
   }
 
-  public async clearBoardTo(
+  async clearBoardTo(
     char: string,
     subscriptionId: string
   ): Promise<MessageResponse> {
