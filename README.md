@@ -78,5 +78,8 @@ Example:
   //             ]
 ```
 
-TBD: 
- * Build package and publish
+### Build
+Nothing special `npm run tsc` should build /src into the the commonjs and ES Modules in /lib
+
+##TODO:
+* Build package and publish
