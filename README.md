@@ -18,7 +18,9 @@ Two little utility helpers that I put together:
 * `characterArrayFromString(string)` - converts a string into a postable character array (see below)
 
 ## Use
-This is set up (but not yet actually done) to be a node module installable in the normal way, but until that's done you will need to clone the repository and install it locally.  `npm install ../vestaboard-api`
+This is set up (but not yet actually done) to be a node module installable in the normal way, 
+but until that's done you will need to clone the repository and install it locally.  
+`npm install ../vestaboard-api`
 
 Included are esm and common js built versions
 ```
@@ -31,22 +33,32 @@ const vesta = new Vesta({apiKey: 'YourAPIKEY', apiSecret:'YourAPISecret'});
 const viewers = await vesta.getViewer();
 
 // Get your subscriptions, and convert to an array of Id
-const subscriptions = await vesta.getSubscriptions();
-const subscriptionIdArray = subscriptions.map((sub)=> sub._id);
-
+  const subscriptions = await vesta.getSubscriptions();
+  const subscriptionIdArray = subscriptions.map((sub)=> sub._id);
 // Clear subscribed boards
-const cleared = await Promise.all(subscriptionIdArray.map(
-      (subId)=> vesta.clearBoardTo("orangeBlock", subId)));
-
-const vestaboardFormattedMessage = "This will format automatically"
-const manuallyFormattedMessage = vesta.characterArrayFromString("redBlock orangeBlock I start in the upper left orangeBlock redBlock return new line start here");
+  const cleared = await Promise.all(
+    subscriptionIdArray.map((subId) =>
+      vesta.clearBoardTo('orangeBlock', subId)
+    )
+  );
+  
+  const vestaboardFormattedMessage = 'This will format automatically';
+  const manuallyFormattedMessage = vesta.characterArrayFromString(
+    'redBlock orangeBlock I start in the upper left orangeBlock redBlock return new line start here'
+  );
 
 // post a message to one subscription
-const singlePostResponse = await vesta.postMessage(subscriptions[0]._id, vestaboardFormattedMessage);
+  const singlePostResponse = await vesta.postMessage(
+    subscriptions[0]._id,
+    vestaboardFormattedMessage
+  );
 
 // Post a message to all my subscriptions
-const messagePostResponse = await Promise.all(subscriptionIdArray.map(
-      (subId)=> vesta.postMessage(subId, manuallyFormattedMessage)));
+  const messagePostResponse = await Promise.all(
+    subscriptionIdArray.map((subId) =>
+      vesta.postMessage(subId, manuallyFormattedMessage)
+    )
+  );
 ```
 
 
