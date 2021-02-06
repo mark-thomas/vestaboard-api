@@ -13,7 +13,7 @@ export default class Vesta {
     constructor(config: APIConfig);
     request(endpoint: string | undefined, options: APIOptions): Promise<AxiosResponse>;
     getSubscriptions(): Promise<Subscription[]>;
-    postMessage(subscriptionId: string, postMessage: string | Array<number[]>): Promise<MessageResponse>;
+    postMessage(subscriptionId: string, postMessage: string | BoardCharArray): Promise<MessageResponse>;
     getViewer(): Promise<ViewerResponse>;
     characterArrayFromString(string: string): BoardCharArray;
     clearBoardTo(char: string, subscriptionId: string): Promise<MessageResponse>;
