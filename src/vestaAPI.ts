@@ -87,10 +87,10 @@ export default class Vesta {
     char: string,
     subscriptionId: string
   ): Promise<MessageResponse> {
-    const clearBoard = emptyBoard.map((line: number[]) =>
+    const clearBoard = emptyBoard.map((line: Line) =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       line.map((_bit) => characterCode[char])
-    );
+    ) as BoardCharArray;
     return await this.postMessage(subscriptionId, clearBoard);
   }
 }
