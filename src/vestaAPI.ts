@@ -7,25 +7,139 @@
  */
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
 
-import { characterCode, specialChar, emptyBoard, LINE_LENGTH } from './values';
+import {
+  characterCode,
+  specialChar,
+  emptyBoard,
+  LINE_LENGTH,
+  BoardCharArray,
+  Line,
+} from './values';
+interface APIConfig {
+  apiKey: string;
+  apiSecret: string;
+}
+
+interface APIOptions {
+  data?: string;
+  method: Method;
+}
+interface Installation {
+  _id: string;
+  installable: {
+    _id: string;
+  };
+}
+interface Board {
+  _id: string;
+}
+interface Subscription {
+  _id: string;
+  _created: number;
+  title?: string | null;
+  icon?: unknown;
+  installation: Installation;
+  boards: Board[];
+}
+interface SubscriptionsResponse {
+  subscriptions: Subscription[];
+}
+interface ViewerResponse {
+  _id: string;
+  _created: number;
+  type: string;
+  installation: {
+    _id: string;
+  };
+}
+
+interface PostResponse {
+  message: {
+    id: string;
+    text?: string | null;
+    created: number;
+  };
+}
+export default class Vesta {
+  apiKey: string;
+  apiSecret: string;
+  readonly baseUrl: string;
+
+  constructor(config: APIConfig) {
+    this.apiKey = config.apiKey;
+    this.apiSecret = config.apiSecret;
+    this.baseUrl = 'https://platform.vestaboard.com';
+  }
+
+  async request(endpoint = '', options: APIOptions): Promise<AxiosResponse> {
+    const url = this.baseUrl + endpoint;
+    const headers = {
+      'X-Vestaboard-Api-Key': this.apiKey,
+      'X-Vestaboard-Api-Secret': this.apiSecret,
+    };
+
+    const text = options.data;
+    const method = options.method;
+    // console.log('posting: ', { url, headers, options, text, method });
+    const config: AxiosRequestConfig = { url, method, headers, data: text };
+
+    return axios(config);
+  }
+
+  async getSubscriptions(): Promise<SubscriptionsResponse> {
+    const url = '/subscriptions';
+    const options = { method: 'GET' as Method };
+    const response = await this.request(url, options);
+    const subscriptions = response.data;
+    return subscriptions as SubscriptionsResponse;
+  }
+
+  async postMessage(
+    subscriptionId: string,
+    message: string | Array<number[]>
+  ): Promise<PostResponse> {
+    const url = `/subscriptions/${subscriptionId}/message`;
+    const data = Array.isArray(message)
+      ? JSON.stringify({ characters: message })
+      : JSON.stringify({ text: message });
+
+    const options = { method: 'POST' as Method, data };
+    const response = await this.request(url, options);
+    return response.data as PostResponse;
+  }
+
+  async getViewer(): Promise<ViewerResponse> {
+    const url = '/viewer';
+    const options = { method: 'GET' as Method };
+    const response = await this.request(url, options);
+    return response.data as ViewerResponse;
+  }
+
+  characterArrayFromString(string: string): BoardCharArray {
+    const charBoard = makeBoard(string);
+    return charBoard;
+  }
+
+  async clearBoardTo(
+    char: string,
+    subscriptionId: string
+  ): Promise<PostResponse> {
+    const clearBoard = emptyBoard.map((line: number[]) =>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      line.map((_bit) => characterCode[char])
+    );
+    return await this.postMessage(subscriptionId, clearBoard);
+  }
+}
 
 function isSpecial(char: string): boolean {
   return specialChar.includes(char);
 }
 
-// function characterLength(string: string): number {
-//   const splitArray = string.split(' ');
-//   const length = splitArray.reduce((acc, word) => {
-//     acc += isSpecial(word) ? 1 : word.length + 1;
-//     return acc;
-//   }, 0);
-//   return length;
-// }
-
-function stringToArray(string: string): Array<number> {
-  const splitArray = string.split(' ');
+function convertToCharCodeArray(string: string): number[] {
+  const wordList = string.split(' ');
   let charCount = 0;
-  const unsplitLines: Array<number> = splitArray
+  const mergedLines = wordList
     .map((word, i) => {
       let elements;
       switch (word) {
@@ -54,11 +168,10 @@ function stringToArray(string: string): Array<number> {
           } else {
             elements = [];
           }
-
           break;
         default:
           elements = word.split('').map((c) => characterCode[c]);
-          if (!isSpecial(splitArray[i + 1])) {
+          if (!isSpecial(wordList[i + 1])) {
             elements.push(0);
           }
           charCount += elements.length;
@@ -66,98 +179,20 @@ function stringToArray(string: string): Array<number> {
       return [...elements];
     })
     .flat();
-  // console.log(unsplitLines);
-  return unsplitLines;
+  return mergedLines;
 }
 
-function makeBoard(string: string): Array<number> {
-  const arrayVersion = stringToArray(string);
-  return arrayVersion;
-}
-interface API_Config {
-  api_key: string;
-  api_secret: string;
-}
-
-interface API_Options {
-  data?: string;
-  method: Method;
-}
-interface IBoard_Array {
-  [index: number]: Array<number>;
-}
-export default class Vesta {
-  api_key: string;
-  api_secret: string;
-  readonly base_url: string;
-
-  constructor(config: API_Config) {
-    this.api_key = config.api_key;
-    this.api_secret = config.api_secret;
-    this.base_url = 'https://platform.vestaboard.com';
-  }
-
-  async request(endpoint = '', options: API_Options): Promise<any> {
-    const url = this.base_url + endpoint;
-    const headers = {
-      'X-Vestaboard-Api-Key': this.api_key,
-      'X-Vestaboard-Api-Secret': this.api_secret,
-    };
-
-    const text = options.data;
-    const method = options.method;
-    // console.log('posting: ', { url, headers, options, text, method });
-    const config: AxiosRequestConfig = { url, method, headers, data: text };
-
-    return axios(config).then((r: AxiosResponse<any>) => r.data);
-  }
-
-  getSubscriptions(): Promise<Record<string, unknown>> {
-    const url = '/subscriptions';
-    const options = { method: 'GET' as Method };
-    return this.request(url, options);
-  }
-
-  postMessage(
-    subscriptionId: string,
-    message: string | Array<number[]>
-  ): Promise<Record<string, unknown>> {
-    const url = `/subscriptions/${subscriptionId}/message`;
-    const data = Array.isArray(message)
-      ? JSON.stringify({ characters: message })
-      : JSON.stringify({ text: message });
-
-    const options = { method: 'POST' as Method, data };
-    return this.request(url, options);
-  }
-
-  getViewer(): Promise<Record<string, unknown>> {
-    const url = '/viewer';
-    const options = { method: 'GET' as Method };
-    return this.request(url, options);
-  }
-
-  characterArrayFromString(string: string): IBoard_Array {
-    const charBoard = makeBoard(string);
-    const newBoard: IBoard_Array = emptyBoard.map((line, row) => {
-      const newLine = line.map((character: string, col: number) => {
-        const lineIndex = row * 22;
-        const useChar = charBoard[col + lineIndex];
-        return useChar || 0;
-      });
-      return newLine;
-    });
-    return newBoard;
-  }
-
-  clearBoardTo(
-    char: string,
-    subscriptionId: string
-  ): Promise<Record<string, unknown>> {
-    const clearBoard = emptyBoard.map((line: number[]) =>
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      line.map((_bit) => characterCode[char])
-    );
-    return this.postMessage(subscriptionId, clearBoard);
-  }
+function makeBoard(string: string): BoardCharArray {
+  const convertedVersion = convertToCharCodeArray(string);
+  // Using the emptyBoard array as a structure, map through the converted
+  // version to make a set of 6 lines with 22 numeric character codes each
+  const newBoard = emptyBoard.map((line, row) => {
+    const newLine = line.map((unusedZeroValue, col) => {
+      const lineIndex = row * LINE_LENGTH;
+      const useCharCode = convertedVersion[col + lineIndex];
+      return useCharCode || 0;
+    }) as Line;
+    return newLine;
+  }) as BoardCharArray;
+  return newBoard;
 }

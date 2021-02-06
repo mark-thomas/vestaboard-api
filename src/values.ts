@@ -1,8 +1,8 @@
-type ICharacterCode = {
+type CharacterCode = {
   [key in string | number]: number;
 };
-export const characterCode: ICharacterCode = {
-  " ": 0,
+export const characterCode: CharacterCode = {
+  ' ': 0,
   A: 1,
   a: 1,
   b: 2,
@@ -65,27 +65,27 @@ export const characterCode: ICharacterCode = {
   8: 34,
   9: 35,
   0: 36,
-  "!": 37,
-  "@": 38,
-  "#": 39,
+  '!': 37,
+  '@': 38,
+  '#': 39,
   $: 40,
-  "(": 41,
-  ")": 42,
-  "-": 44,
-  "+": 46,
-  "&": 47,
-  "=": 48,
-  ";": 49,
-  ":": 50,
+  '(': 41,
+  ')': 42,
+  '-': 44,
+  '+': 46,
+  '&': 47,
+  '=': 48,
+  ';': 49,
+  ':': 50,
   "'": 52,
   '"': 53,
-  "%": 54,
-  ",": 55,
-  ".": 56,
-  "/": 59,
-  "?": 60,
+  '%': 54,
+  ',': 55,
+  '.': 56,
+  '/': 59,
+  '?': 60,
   degreeSign: 62,
-  "°": 62,
+  '°': 62,
   redBlock: 63,
   orangeBlock: 64,
   yellowBlock: 65,
@@ -96,25 +96,46 @@ export const characterCode: ICharacterCode = {
   blackBlock: 0,
 };
 
-interface specialChar {
-  [index: number]: string;
-}
-
 export const specialChar = [
-  "degreeSign",
-  "redBlock",
-  "orangeBlock",
-  "yellowBlock",
-  "greenBlock",
-  "blueBlock",
-  "violetBlock",
-  "whiteBlock",
-  "blackBlock",
-  "return",
-  "",
+  'degreeSign',
+  'redBlock',
+  'orangeBlock',
+  'yellowBlock',
+  'greenBlock',
+  'blueBlock',
+  'violetBlock',
+  'whiteBlock',
+  'blackBlock',
+  'return',
+  '',
 ];
 
-export const LINE_LENGTH: number = 22;
+export const LINE_LENGTH = 22;
+export type Line = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+];
 
-const emptyLine: Array<number> = new Array(LINE_LENGTH).fill(0);
-export const emptyBoard = new Array(6).fill(emptyLine);
+export type BoardCharArray = [Line, Line, Line, Line, Line, Line];
+const emptyLine = new Array(LINE_LENGTH).fill(0) as Line;
+export const emptyBoard = new Array(6).fill(emptyLine) as BoardCharArray;
