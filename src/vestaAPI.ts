@@ -15,51 +15,13 @@ import {
   BoardCharArray,
   Line,
 } from './values';
-interface APIConfig {
-  apiKey: string;
-  apiSecret: string;
-}
-
-interface APIOptions {
-  data?: string;
-  method: Method;
-}
-interface Installation {
-  _id: string;
-  installable: {
-    _id: string;
-  };
-}
-interface Board {
-  _id: string;
-}
-interface Subscription {
-  _id: string;
-  _created: number;
-  title?: string | null;
-  icon?: unknown;
-  installation: Installation;
-  boards: Board[];
-}
-interface SubscriptionsResponse {
-  subscriptions: Subscription[];
-}
-interface ViewerResponse {
-  _id: string;
-  _created: number;
-  type: string;
-  installation: {
-    _id: string;
-  };
-}
-
-interface PostResponse {
-  message: {
-    id: string;
-    text?: string | null;
-    created: number;
-  };
-}
+import {
+  APIConfig,
+  APIOptions,
+  Subscription,
+  ViewerResponse,
+  MessageResponse,
+} from './types';
 export default class Vesta {
   apiKey: string;
   apiSecret: string;
@@ -80,38 +42,39 @@ export default class Vesta {
 
     const text = options.data;
     const method = options.method;
-    // console.log('posting: ', { url, headers, options, text, method });
     const config: AxiosRequestConfig = { url, method, headers, data: text };
 
     return axios(config);
   }
 
-  async getSubscriptions(): Promise<SubscriptionsResponse> {
+  async getSubscriptions(): Promise<Subscription[]> {
     const url = '/subscriptions';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
-    const subscriptions = response.data;
-    return subscriptions as SubscriptionsResponse;
+    const { subscriptions } = response.data;
+    return subscriptions as Subscription[];
   }
 
   async postMessage(
     subscriptionId: string,
-    message: string | Array<number[]>
-  ): Promise<PostResponse> {
+    postMessage: string | BoardCharArray
+  ): Promise<MessageResponse> {
     const url = `/subscriptions/${subscriptionId}/message`;
-    const data = Array.isArray(message)
-      ? JSON.stringify({ characters: message })
-      : JSON.stringify({ text: message });
+    const data = Array.isArray(postMessage)
+      ? JSON.stringify({ characters: postMessage })
+      : JSON.stringify({ text: postMessage });
 
     const options = { method: 'POST' as Method, data };
     const response = await this.request(url, options);
-    return response.data as PostResponse;
+    const { message } = response.data;
+    return message as MessageResponse;
   }
 
   async getViewer(): Promise<ViewerResponse> {
     const url = '/viewer';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
+    // Viewer response is not nested like subscriptions or message
     return response.data as ViewerResponse;
   }
 
@@ -123,7 +86,7 @@ export default class Vesta {
   async clearBoardTo(
     char: string,
     subscriptionId: string
-  ): Promise<PostResponse> {
+  ): Promise<MessageResponse> {
     const clearBoard = emptyBoard.map((line: number[]) =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       line.map((_bit) => characterCode[char])
