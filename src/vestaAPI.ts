@@ -47,7 +47,7 @@ export default class Vesta {
     return axios(config);
   }
 
-  async getSubscriptions(): Promise<Subscription[]> {
+  public async getSubscriptions(): Promise<Subscription[]> {
     const url = '/subscriptions';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
@@ -55,7 +55,7 @@ export default class Vesta {
     return subscriptions as Subscription[];
   }
 
-  async postMessage(
+  public async postMessage(
     subscriptionId: string,
     postMessage: string | BoardCharArray
   ): Promise<MessageResponse> {
@@ -70,7 +70,7 @@ export default class Vesta {
     return message as MessageResponse;
   }
 
-  async getViewer(): Promise<ViewerResponse> {
+  public async getViewer(): Promise<ViewerResponse> {
     const url = '/viewer';
     const options = { method: 'GET' as Method };
     const response = await this.request(url, options);
@@ -83,13 +83,13 @@ export default class Vesta {
     return charBoard;
   }
 
-  async clearBoardTo(
+  public async clearBoardTo(
     char: string,
     subscriptionId: string
   ): Promise<MessageResponse> {
     const clearBoard = emptyBoard.map((line: Line) =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      line.map((_bit) => characterCode[char])
+      line.map((unusedZero) => characterCode[char])
     ) as BoardCharArray;
     return await this.postMessage(subscriptionId, clearBoard);
   }
