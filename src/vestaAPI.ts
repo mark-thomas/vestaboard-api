@@ -59,6 +59,11 @@ export default class Vesta {
     subscriptionId: string,
     postMessage: string | BoardCharArray
   ): Promise<MessageResponse> {
+    if (typeof postMessage === 'string') {
+      if (containsInvalidCharacters(postMessage)) {
+        throw new Error('Input contains one or more invalid characters.')
+      }
+    }
     const url = `/subscriptions/${subscriptionId}/message`;
     const data = Array.isArray(postMessage)
       ? JSON.stringify({ characters: postMessage })
@@ -99,7 +104,15 @@ function isSpecial(char: string): boolean {
   return specialChar.includes(char);
 }
 
+function containsInvalidCharacters(input: string): boolean {
+  const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]+)$/g;
+  return !!test.exec(input);
+}
+
 function convertToCharCodeArray(string: string): number[] {
+  if (containsInvalidCharacters(string)) {
+    throw new Error('Input contains one or more invalid characters.')
+  }
   const wordList = string.split(' ');
   let charCount = 0;
   const mergedLines = wordList
