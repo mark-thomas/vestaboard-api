@@ -106,7 +106,8 @@ function isSpecial(char: string): boolean {
 
 function containsInvalidCharacters(input: string): boolean {
   const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]+)$/g;
-  return !!test.exec(input);
+  console.log(input.search(test));
+  return input.search(test) < 0;
 }
 
 function convertToCharCodeArray(string: string): number[] {
