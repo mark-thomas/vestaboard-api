@@ -106,7 +106,6 @@ function isSpecial(char: string): boolean {
 
 function containsInvalidCharacters(input: string): boolean {
   const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]+)$/g;
-  console.log(input.search(test));
   return input.search(test) < 0;
 }
 
