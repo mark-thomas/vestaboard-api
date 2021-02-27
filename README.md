@@ -22,9 +22,9 @@ Two little utility helpers that I put together:
 
 ## Use
 
-This is set up (but not yet actually done) to be a node module installable in the normal way,
-but until that's done you will need to clone the repository and install it locally.  
-`npm install ../vestaboard-api`
+```js
+npm i -save vestaboard-api
+```
 
 Included are esm and common js built versions
 
