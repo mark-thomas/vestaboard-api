@@ -61,7 +61,7 @@ export default class Vesta {
   ): Promise<MessageResponse> {
     if (typeof postMessage === 'string') {
       if (containsInvalidCharacters(postMessage)) {
-        throw new Error('Input contains one or more invalid characters.')
+        throw new Error('Input contains one or more invalid characters.');
       }
     }
     const url = `/subscriptions/${subscriptionId}/message`;
@@ -92,6 +92,9 @@ export default class Vesta {
     char: string,
     subscriptionId: string
   ): Promise<MessageResponse> {
+    if (containsInvalidCharacters(char)) {
+      throw new Error(`Input contains one or more invalid character: ${char}`);
+    }
     const clearBoard = emptyBoard.map((line: Line) =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       line.map((_bit) => characterCode[char])
@@ -111,7 +114,7 @@ function containsInvalidCharacters(input: string): boolean {
 
 function convertToCharCodeArray(string: string): number[] {
   if (containsInvalidCharacters(string)) {
-    throw new Error('Input contains one or more invalid characters.')
+    throw new Error('Input contains one or more invalid characters.');
   }
   const wordList = string.split(' ');
   let charCount = 0;
