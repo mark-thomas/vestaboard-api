@@ -1,6 +1,6 @@
 {
   "name": "vestaboard-api",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "vestaboard api wrapper node/ts",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -15,7 +15,7 @@
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run tsc"
   },
-  "author": "Mark Thomas <markct@gmail.com>",
+  "author": "Mark Thomas <mark@partialsignal.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
