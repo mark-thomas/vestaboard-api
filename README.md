@@ -102,5 +102,4 @@ Nothing special `npm run tsc` should build /src into the the commonjs and ES Mod
 
 ## TODO
 
-- Build package and publish
 - Tests!
