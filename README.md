@@ -42,12 +42,12 @@ const subscriptions = await vesta.getSubscriptions();
 const subscriptionIdArray = subscriptions.map((sub) => sub._id);
 // Clear subscribed boards
 const cleared = await Promise.all(
-  subscriptionIdArray.map((subId) => vesta.clearBoardTo('orangeBlock', subId))
+  subscriptionIdArray.map((subId) => vesta.clearBoardTo('*orangeBlock', subId))
 );
 
 const vestaboardFormattedMessage = 'This will format automatically';
 const manuallyFormattedMessage = vesta.characterArrayFromString(
-  'redBlock orangeBlock I start in the upper left orangeBlock redBlock return new line start here'
+  '*redBlock *orangeBlock I start in the upper left *orangeBlock *redBlock *return new line start here'
 );
 
 // post a message to one subscription
@@ -69,21 +69,21 @@ const messagePostResponse = await Promise.all(
 I wanted to be able to convert strings into the character array so that I could place them more or less where I wanted, and was mainly dealing with lines and words. So here is a quick and dirty helper to take a string and split it into an array of 6, 22 element arrays of vestaboard [numeric character codes](https://docs.vestaboard.com/characters). A few "special characters" are represented as words (probably should have done an escape character but...)
 
 ```
-  degreeSign: 62,
-  redBlock: 63,
-  orangeBlock: 64,
-  yellowBlock: 65,
-  greenBlock: 66,
-  blueBlock: 67,
-  violetBlock: 68,
-  whiteBlock: 69,
-  return: inserts 0 to the end of the line
+  *degreeSign: 62,
+  *redBlock or *red: 63,
+  *orangeBlock or *orange: 64,
+  *yellowBlock or *yellow: 65,
+  *greenBlock or *green: 66,
+  *blueBlock or *blue: 67,
+  *violetBlock or *violet: 68,
+  *whiteBlock or *white: 69,
+  *return: inserts 0 to the end of the line
 ```
 
 Example:
 
 ```js
-const string = 'redBlock orangeBlock WARNING orangeBlock redBlock return 12345';
+const string = '*redBlock *orangeBlock WARNING *orangeBlock *redBlock *return 12345';
 const arrayVersion = vesta.characterArrayFromString(string);
 console.log(arrayVersion);
 // => Array(6) [
