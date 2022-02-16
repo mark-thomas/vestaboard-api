@@ -122,15 +122,23 @@ function convertToCharCodeArray(string: string): number[] {
     .map((word, i) => {
       let elements;
       switch (word) {
-        case 'degreeSign':
-        case 'redBlock':
-        case 'orangeBlock':
-        case 'yellowBlock':
-        case 'greenBlock':
-        case 'blueBlock':
-        case 'violetBlock':
-        case 'whiteBlock':
-        case 'blackBlock':
+        case '*degreeSign':
+        case '*redBlock':
+        case '*orangeBlock':
+        case '*yellowBlock':
+        case '*greenBlock':
+        case '*blueBlock':
+        case '*violetBlock':
+        case '*whiteBlock':
+        case '*blackBlock':
+        case '*red':
+        case '*orange':
+        case '*yellow':
+        case '*green':
+        case '*blue':
+        case '*violet':
+        case '*white':
+        case '*black':
           elements = [characterCode[word]];
           charCount += 1;
           break;
@@ -138,7 +146,7 @@ function convertToCharCodeArray(string: string): number[] {
           elements = [0];
           charCount += 1;
           break;
-        case 'return':
+        case '*return':
           const charCount_mod_line = charCount % LINE_LENGTH;
           const remaining = LINE_LENGTH - charCount_mod_line;
           if (remaining < LINE_LENGTH) {
