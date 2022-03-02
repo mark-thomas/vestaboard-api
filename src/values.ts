@@ -94,6 +94,15 @@ export const characterCode: CharacterCode = {
   violetBlock: 68,
   whiteBlock: 69,
   blackBlock: 0,
+  '*degreeSign': 62,
+  '*redBlock': 63,
+  '*orangeBlock': 64,
+  '*yellowBlock': 65,
+  '*greenBlock': 66,
+  '*blueBlock': 67,
+  '*violetBlock': 68,
+  '*whiteBlock': 60,
+  '*blackBlock': 0,
 };
 
 export const specialChar = [
@@ -106,6 +115,15 @@ export const specialChar = [
   'violetBlock',
   'whiteBlock',
   'blackBlock',
+  '*degreeSign',
+  '*redBlock',
+  '*orangeBlock',
+  '*yellowBlock',
+  '*greenBlock',
+  '*blueBlock',
+  '*violetBlock',
+  '*whiteBlock',
+  '*blackBlock',
   'return',
   '',
 ];
