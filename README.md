@@ -66,9 +66,19 @@ const messagePostResponse = await Promise.all(
 
 ### Array from string helper
 
-I wanted to be able to convert strings into the character array so that I could place them more or less where I wanted, and was mainly dealing with lines and words. So here is a quick and dirty helper to take a string and split it into an array of 6, 22 element arrays of vestaboard [numeric character codes](https://docs.vestaboard.com/characters). A few "special characters" are represented as words (probably should have done an escape character but...)
+I wanted to be able to convert strings into the character array so that I could
+place them more or less where I wanted, and was mainly dealing with lines and
+words. So here is a quick and dirty helper to take a string and split it into an
+array of 6, 22 element arrays of vestaboard [numeric character
+codes](https://docs.vestaboard.com/characters). A few "special characters" are
+represented as words.
 
-```
+As part of adding an escape character as the main path forward, but without
+breaking previous stuff, I've added (thanks @chrisdrackett) `*` as an escape
+character for the various special characters. In this build previously existing
+ones work, but those will be removed in a future release.
+
+```js
   degreeSign: 62,
   redBlock: 63,
   orangeBlock: 64,
@@ -78,6 +88,16 @@ I wanted to be able to convert strings into the character array so that I could 
   violetBlock: 68,
   whiteBlock: 69,
   return: inserts 0 to the end of the line
+  *degreeSign: 62,
+  *redBlock: 63,
+  *orangeBlock: 64,
+  *yellowBlock: 65,
+  *greenBlock: 66,
+  *blueBlock: 67,
+  *violetBlock: 68,
+  *whiteBlock: 60,
+  *blackBlock: 0,
+  *return: inserts 0 to the end of the line
 ```
 
 Example:

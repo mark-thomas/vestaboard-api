@@ -125,6 +125,7 @@ export const specialChar = [
   '*whiteBlock',
   '*blackBlock',
   'return',
+  '*return',
   '',
 ];
 
