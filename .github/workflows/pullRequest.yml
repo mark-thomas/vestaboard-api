@@ -15,8 +15,11 @@ jobs:
 
       - name: Set up environment
         run: |
-          echo "SECRET_1=${{ secrets.SECRET_1 }}" >> $GITHUB_ENV
-          echo "SECRET_2=${{ secrets.SECRET_2 }}" >> $GITHUB_ENV
+          echo "SUBSCRIPTION_API_SECRET=${{ secrets.SUBSCRIPTION_API_SECRET }}" >> $GITHUB_ENV
+          echo "SUBSCRIPTION_API_KEY=${{ secrets.SUBSCRIPTION_API_KEY }}" >> $GITHUB_ENV
+          echo "RW_API_KEY=${{ secrets.RW_API_KEY }}" >> $GITHUB_ENV
+          echo "LOCAL_IP_ADDRESS=${{ secrets.LOCAL_IP_ADDRESS }}" >> $GITHUB_ENV
+          echo "LOCAL_API_KEY=${{ secrets.LOCAL_API_KEY }}" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
