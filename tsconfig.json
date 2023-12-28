@@ -70,5 +70,5 @@
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "outDir": "./lib/esm"
   },
-  "include": ["./src"]
+  "include": ["./src", "tests/jest.config.js"]
 }

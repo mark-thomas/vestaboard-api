@@ -1,8 +1,9 @@
 type CharacterCode = {
   [key in string | number]: number;
 };
+
 export const characterCode: CharacterCode = {
-  ' ': 0,
+  ' ': 0, // Blank (Black on black vestaboard, white on white vestaboard)
   A: 1,
   a: 1,
   b: 2,
@@ -93,7 +94,8 @@ export const characterCode: CharacterCode = {
   blueBlock: 67,
   violetBlock: 68,
   whiteBlock: 69,
-  blackBlock: 0,
+  blackBlock: 70,
+  filled: 71, // White on black Vestaboard / black on white Vestaboard
   '*degreeSign': 62,
   '*redBlock': 63,
   '*orangeBlock': 64,
@@ -101,8 +103,8 @@ export const characterCode: CharacterCode = {
   '*greenBlock': 66,
   '*blueBlock': 67,
   '*violetBlock': 68,
-  '*whiteBlock': 60,
-  '*blackBlock': 0,
+  '*whiteBlock': 69,
+  '*blackBlock': 70,
 };
 
 export const specialChar = [
@@ -124,7 +126,6 @@ export const specialChar = [
   '*violetBlock',
   '*whiteBlock',
   '*blackBlock',
-  'return',
   '*return',
   '',
 ];

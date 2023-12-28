@@ -1,0 +1,45 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: |
+          echo "SECRET_1=${{ secrets.SECRET_1 }}" >> $GITHUB_ENV
+          echo "SECRET_2=${{ secrets.SECRET_2 }}" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            if [[ ${{ github.event.pull_request.title }} == *'vestaboardLocalAPI post tests requiring real key and IP'* ]]; then
+              echo "Skipping test: vestaboardLocalAPI post tests requiring real key and IP"
+            else
+              # Run your tests here
+              echo "Running all tests"
+            fi
+          fi
+
+      - name: Add test results to pull request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const results = 'Test results';
+            const prNumber = context.payload.pull_request.number;
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            await octokit.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: results
+            });
