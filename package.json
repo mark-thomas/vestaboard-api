@@ -1,6 +1,6 @@
 {
   "name": "vestaboard-api",
-  "version": "1.1.1",
+  "version": "1.1.6",
   "description": "vestaboard api wrapper node/ts",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -18,7 +18,7 @@
   "author": "Mark Thomas <mark@partialsignal.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
