@@ -12,7 +12,6 @@ import {
   Subscription,
   ViewerResponse,
   MessageResponse,
-  APIConfig,
   SubscriptionAPIConfig,
 } from './types';
 
