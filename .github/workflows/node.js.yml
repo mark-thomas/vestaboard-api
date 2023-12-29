@@ -23,3 +23,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+      - run: npm run test
+        env:
+          SUBSCRIPTION_API_SECRET: ${{ secrets.SUBSCRIPTION_API_SECRET }}
+          SUBSCRIPTION_API_KEY: ${{ secrets.SUBSCRIPTION_API_KEY }}
+          RW_API_KEY: ${{ secrets.RW_API_KEY }}
+          LOCAL_IP_ADDRESS: ${{ secrets.LOCAL_IP_ADDRESS }}
+          LOCAL_API_KEY: ${{ secrets.LOCAL_API_KEY }}
