@@ -1,12 +1,4 @@
-'use strict';
-
-/**
- * Create an instance of Vesta
- * @param {Object} defaultConfig the default config for the instance
- * @return {Vesta} A new instance of Vesta
- */
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
-
 import {
   characterCode,
   specialChar,
@@ -16,21 +8,22 @@ import {
   Line,
 } from './values';
 import {
-  APIConfig,
   APIOptions,
   Subscription,
   ViewerResponse,
   MessageResponse,
+  SubscriptionAPIConfig,
 } from './types';
 
 export default class Vesta {
-  apiKey: string;
-  apiSecret: string;
+  private apiKey: string;
+  private apiSecret: string;
   readonly baseUrl: string;
 
-  constructor(config: APIConfig) {
+  constructor(config: SubscriptionAPIConfig) {
     this.apiKey = config.apiKey;
     this.apiSecret = config.apiSecret;
+
     this.baseUrl = 'https://platform.vestaboard.com';
   }
 
@@ -103,7 +96,6 @@ export default class Vesta {
     return await this.postMessage(subscriptionId, clearBoard);
   }
 }
-
 function isSpecial(char: string): boolean {
   return specialChar.includes(char);
 }
@@ -125,7 +117,6 @@ function containsNonDisplayCharacter(input: string): boolean {
   const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]+)$/g;
   return input.search(test) < 0; // -1 for no match
 }
-
 function convertToCharCodeArray(string: string): number[] {
   // Does this string use an the escape character?
   const usesEscape = containsEscapeCharacter(string);
@@ -211,7 +202,6 @@ function convertToCharCodeArray(string: string): number[] {
     .flat();
   return mergedLines;
 }
-
 function makeBoard(string: string): BoardCharArray {
   const convertedVersion = convertToCharCodeArray(string);
   // Using the emptyBoard array as a structure, map through the converted

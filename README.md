@@ -4,7 +4,112 @@
 
 Basic Node API wrapper for the Vestaboard api
 
-This is definitely hobby code at the moment, so no guarantees of anything, contributions welcome.
+This is definitely hobby code at the moment, so no guarantees of anything,
+contributions welcome.
+
+# Major Version Change -> 2.0
+
+This version has breaking changes largely driven by enhancements to the
+Vestaboard API offerings since 1.0 was created.
+
+When 1.0 was built the Vestaboard only had a single available interface through
+a now deprecated set of APIs. Now there are three ways to communicate with a
+vestaboard:
+
+- The `Subscription API` is the closest in concept to the original API, it's
+  designed for writing to one or more boards based on a `subscriptionID`. It's
+  probably what you want if you are making an installable or other extension
+  that writes to multiple boards.
+- The `Read-write API` is similarly cloud based, and has similar functionality
+  to the subscriptionAPI, but only communicates with a single board. You need to
+  enable access via the Vestaboard web app, and then get the read write key. You
+  can now _read_ the current message from the board, in exchange you lose the
+  ability to access multiple boards.
+- The `Local API` is similar to the read-write API, with a couple of exceptions.
+  It must be enabled via Vestaboard and they will provide you with a token, then
+  you call the enablement API with the provided token to get a local key. That
+  local key allows you to _read_ and _write_ directly to the local board, which
+  doesn't use the vestaboard services.
+
+## Feature set
+
+Maps closely to the published Vestaboard API methods as described in the
+[docs](https://docs.vestaboard.com/docs/read-write-api/introduction)
+
+Given the three distinct models, and their idiosyncrasies, I built the three
+interfaces on their own.
+
+Each one requires different configuration settings (see types.ts). You can also
+use the tiny helper creation function like:
+
+```
+const subscriptionConfig: SubscriptionAPIConfig = {
+  mode: VestaboardControlMode.Subscription,
+  apiKey: process.env.SUBSCRIPTION_API_KEY as string,
+  apiSecret: process.env.SUBSCRIPTION_API_SECRET as string,
+};
+let vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
+```
+
+or just go directly
+
+```
+import { VestaRW } from 'vestaboard-api'
+const vesta = new VestaRW({ apiReadWriteKey: 'Your_RW_API_KEY' });
+
+```
+
+Everything now throws errors of various levels of descriptiveness. Mostly the
+post requests, so use appropriately.
+
+New utility function isValidBoard is also exposed, it just checks that the
+character array is valid. Local board api calls _only_ accepts character arrays,
+not the auto-layout text versions. There is a new(ish) package from Vestaboard
+that can help build these if you like:
+[VBML](https://docs.vestaboard.com/docs/vbml/)
+
+## Migration
+
+The migration from v1 api to -> subscription api is minor.
+You could go from something like:
+
+```
+const { Vesta } = require('vestaboard-api');
+const vesta = new Vesta({ apiKey, apiSecret });
+
+```
+
+to something like:
+
+```
+const Vestaboard = require('vestaboard-api');
+
+const vesta = Vestaboard.createVestaboard(
+  Vestaboard.VestaboardControlMode.Subscription,
+  { apiKey, apiSecret }
+);
+```
+
+The only other change I noticed was that the subscription response on the
+v1 API had a property of `_id` vs. the new structure of `id` so that needed to
+change. Otherwise I didn't see anything that would really mess you up.
+
+The R/W api and the local api are all new to the package so not so much of a
+migration, but if you are converting to the r/w
+
+Oh, and I changed the character codes to match the latest Vestaboard system with
+support for `filled` etc. for white/black colorways.
+
+Also killed the unescaped `return` character, and added a replacement for `\n`
+that has the same behavior as `*return`.
+
+### A note on rate limiting
+
+I believe the boards ignore subsequent messages within 15 seconds, and the APIs
+definitely kick a 503 at about 15 seconds for rate limiting. It's a hardware
+device after all.
+
+# Previous 1.0 version
 
 ## Includes
 

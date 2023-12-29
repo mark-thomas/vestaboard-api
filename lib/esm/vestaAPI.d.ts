@@ -5,16 +5,21 @@
  */
 import { AxiosResponse } from 'axios';
 import { BoardCharArray } from './values';
-import { APIConfig, APIOptions, Subscription, ViewerResponse, MessageResponse } from './types';
+import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString } from './sharedFunctions';
+import { APIOptions, Subscription, MessageResponse, SubscriptionAPIConfig } from './types';
 export default class Vesta {
     apiKey: string;
-    apiSecret: string;
+    private apiSecret;
     readonly baseUrl: string;
-    constructor(config: APIConfig);
+    constructor(config: SubscriptionAPIConfig);
     request(endpoint: string | undefined, options: APIOptions): Promise<AxiosResponse>;
     getSubscriptions(): Promise<Subscription[]>;
     postMessage(subscriptionId: string, postMessage: string | BoardCharArray): Promise<MessageResponse>;
-    getViewer(): Promise<ViewerResponse>;
-    characterArrayFromString(string: string): BoardCharArray;
     clearBoardTo(char: string, subscriptionId: string): Promise<MessageResponse>;
+    isSpecial: typeof isSpecial;
+    containsEscapeCharacter: typeof containsEscapeCharacter;
+    containsNonDisplayCharacter: typeof containsNonDisplayCharacter;
+    convertToCharCodeArray: typeof convertToCharCodeArray;
+    makeBoard: typeof makeBoard;
+    characterArrayFromString: typeof characterArrayFromString;
 }
