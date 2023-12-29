@@ -90,11 +90,12 @@ const vesta = Vestaboard.createVestaboard(
 );
 ```
 
-The only other change I needed was to note that the subscription response on the
+The only other change I noticed was that the subscription response on the
 v1 API had a property of `_id` vs. the new structure of `id` so that needed to
 change. Otherwise I didn't see anything that would really mess you up.
 
-The R/W api and the local api are all new so no migration.
+The R/W api and the local api are all new to the package so not so much of a
+migration, but if you are converting to the r/w
 
 Oh, and I changed the character codes to match the latest Vestaboard system with
 support for `filled` etc. for white/black colorways.

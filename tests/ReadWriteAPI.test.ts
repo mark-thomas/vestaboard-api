@@ -80,14 +80,14 @@ describe('vestaboardRWAPI post tests with rate limiting', () => {
       expect(postResponse).toHaveProperty('id');
       expect(postResponse).toHaveProperty('status');
       expect(postResponse).toHaveProperty('created');
-      if (testCounter > 1) {
-        await new Promise((resolve) => setTimeout(resolve, 15000));
-      }
     }
   }, 20_000);
 
   test(`read current message results in last posted message`, async () => {
     testCounter++;
+    if (testCounter > 1) {
+      await new Promise((resolve) => setTimeout(resolve, 15000));
+    }
     const message = await vestaRW.readFromBoard();
 
     expect(message).toHaveProperty('currentMessage');
@@ -96,19 +96,16 @@ describe('vestaboardRWAPI post tests with rate limiting', () => {
     const { layout } = message.currentMessage;
     // const parsedLayout = JSON.parse(layout);
     expect(layout).toEqual(characterHelloWorld);
-    if (testCounter > 1) {
-      await new Promise((resolve) => setTimeout(resolve, 15000));
-    }
   }, 20_000);
 
   test('can post a text based message and gets correct response', async () => {
     testCounter++;
+    if (testCounter > 1) {
+      await new Promise((resolve) => setTimeout(resolve, 15000 * 2));
+    }
     const postResponse = await vestaRW.postMessage('This is a test message');
     expect(postResponse).toHaveProperty('id');
     expect(postResponse).toHaveProperty('status');
     expect(postResponse).toHaveProperty('created');
-    if (testCounter > 1) {
-      await new Promise((resolve) => setTimeout(resolve, 15000));
-    }
-  }, 20_000);
+  }, 65_000);
 });
