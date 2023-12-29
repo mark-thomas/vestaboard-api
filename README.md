@@ -68,6 +68,40 @@ not the auto-layout text versions. There is a new(ish) package from Vestaboard
 that can help build these if you like:
 [VBML](https://docs.vestaboard.com/docs/vbml/)
 
+## Migration
+
+The migration from v1 api to -> subscription api is minor.
+You could go from something like:
+
+```
+const { Vesta } = require('vestaboard-api');
+const vesta = new Vesta({ apiKey, apiSecret });
+
+```
+
+to something like:
+
+```
+const Vestaboard = require('vestaboard-api');
+
+const vesta = Vestaboard.createVestaboard(
+  Vestaboard.VestaboardControlMode.Subscription,
+  { apiKey, apiSecret }
+);
+```
+
+The only other change I needed was to note that the subscription response on the
+v1 API had a property of `_id` vs. the new structure of `id` so that needed to
+change. Otherwise I didn't see anything that would really mess you up.
+
+The R/W api and the local api are all new so no migration.
+
+Oh, and I changed the character codes to match the latest Vestaboard system with
+support for `filled` etc. for white/black colorways.
+
+Also killed the unescaped `return` character, and added a replacement for `\n`
+that has the same behavior as `*return`.
+
 ### A note on rate limiting
 
 I believe the boards ignore subsequent messages within 15 seconds, and the APIs

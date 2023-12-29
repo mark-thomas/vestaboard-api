@@ -63,10 +63,12 @@ export function convertToCharCodeArray(string: string): number[] {
 
   const containsInvalidWithoutEscapeChar =
     containsNonDisplayCharacter(cleanedString);
-  if (containsInvalidCharacter) {
-    // This string is invalid
-    throw new Error('Input contains one or more invalid characters.');
-  }
+
+  // if (containsInvalidCharacter) {
+  //   // This string is invalid
+  //   // throw new Error('Input contains one or more invalid characters.');
+
+  // }
 
   if (containsInvalidWithoutEscapeChar) {
     // This string is invalid, even without the escape character;
