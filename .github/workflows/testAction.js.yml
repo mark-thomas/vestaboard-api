@@ -1,0 +1,34 @@
+name: Run tests on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: |
+          echo "SUBSCRIPTION_API_SECRET=${{ secrets.SUBSCRIPTION_API_SECRET }}" >> $GITHUB_ENV
+          echo "SUBSCRIPTION_API_KEY=${{ secrets.SUBSCRIPTION_API_KEY }}" >> $GITHUB_ENV
+          echo "RW_API_KEY=${{ secrets.RW_API_KEY }}" >> $GITHUB_ENV
+          echo "LOCAL_IP_ADDRESS=${{ secrets.LOCAL_IP_ADDRESS }}" >> $GITHUB_ENV
+          echo "LOCAL_API_KEY=${{ secrets.LOCAL_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            if [[ ${{ github.event.pull_request.title }} == *'vestaboardLocalAPI post tests requiring real key and IP'* ]]; then
+              echo "Skipping test: vestaboardLocalAPI post tests requiring real key and IP"
+            else
+              # Run your tests here
+              echo "Running all tests"
+            fi
+          fi
+
