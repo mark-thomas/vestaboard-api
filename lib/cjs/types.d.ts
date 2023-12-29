@@ -8,22 +8,18 @@ export declare enum VestaboardControlMode {
 export interface SubscriptionAPIConfig {
     apiKey: string;
     apiSecret: string;
-    mode: VestaboardControlMode.Subscription;
 }
 export interface RWAPIConfig {
     apiReadWriteKey: string;
-    mode: VestaboardControlMode.RW;
 }
 export interface LocalAPIConfigWithKey {
     localIPAddress: string;
     localApiKey: string;
-    mode: VestaboardControlMode.Local;
     localAPIEnablementToken?: string;
 }
 export interface LocalAPIConfigWithToken {
     localIPAddress: string;
     localAPIEnablementToken: string;
-    mode: VestaboardControlMode.Local;
     localApiKey?: string;
 }
 export type LocalAPIConfig = LocalAPIConfigWithKey | LocalAPIConfigWithToken;

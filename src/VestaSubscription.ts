@@ -21,6 +21,7 @@ import {
   convertToCharCodeArray,
   makeBoard,
   characterArrayFromString,
+  isValidBoard,
 } from './sharedFunctions';
 
 import {
@@ -130,4 +131,5 @@ export default class Vesta {
   convertToCharCodeArray = convertToCharCodeArray;
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
+  isValidBoard = isValidBoard;
 }

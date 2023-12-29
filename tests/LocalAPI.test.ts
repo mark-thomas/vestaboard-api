@@ -8,7 +8,6 @@ import { BoardCharArray } from '../src/values';
 dotenv.config();
 
 const localConfig: LocalAPIConfig = {
-  mode: VestaboardControlMode.Local,
   localIPAddress: process.env.LOCAL_IP_ADDRESS as string,
   localApiKey: process.env.LOCAL_API_KEY as string,
 };
@@ -18,7 +17,10 @@ describe('vestaboard local API tests', () => {
   let vestaLocal: VestaLocal;
 
   beforeAll(() => {
-    vestaLocal = createVestaboard(localConfig) as VestaLocal;
+    vestaLocal = createVestaboard(
+      VestaboardControlMode.Local,
+      localConfig
+    ) as VestaLocal;
   });
 
   test('offline: createVestaboard returns a VestaLocal', () => {

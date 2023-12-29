@@ -6,7 +6,6 @@ import { RWAPIConfig, VestaboardControlMode } from '../src/types';
 import { BoardCharArray } from '../src/values';
 
 const rwConfig: RWAPIConfig = {
-  mode: VestaboardControlMode.RW,
   apiReadWriteKey: process.env.RW_API_KEY as string,
 };
 // // Using the rwConfig we are going to create a test suite similar to the one
@@ -17,7 +16,7 @@ describe('vestaboardRWAPI tests', () => {
   let characterHelloWorld: BoardCharArray;
 
   beforeAll(() => {
-    vestaRW = createVestaboard(rwConfig) as VestaRW;
+    vestaRW = createVestaboard(VestaboardControlMode.RW, rwConfig) as VestaRW;
     helloWorld = `Hello World!\n${new Date().toLocaleString('en-US', {
       dateStyle: 'short',
       timeStyle: 'long',
@@ -61,7 +60,7 @@ describe('vestaboardRWAPI post tests with rate limiting', () => {
   let testCounter = 0;
 
   beforeAll(() => {
-    vestaRW = createVestaboard(rwConfig) as VestaRW;
+    vestaRW = createVestaboard(VestaboardControlMode.RW, rwConfig) as VestaRW;
     helloWorld = `Hello World!\n${new Date().toLocaleString('en-US', {
       dateStyle: 'short',
       timeStyle: 'long',
@@ -97,7 +96,10 @@ describe('vestaboardRWAPI post tests with rate limiting', () => {
     const { layout } = message.currentMessage;
     // const parsedLayout = JSON.parse(layout);
     expect(layout).toEqual(characterHelloWorld);
-  });
+    if (testCounter > 1) {
+      await new Promise((resolve) => setTimeout(resolve, 15000));
+    }
+  }, 20_000);
 
   test('can post a text based message and gets correct response', async () => {
     testCounter++;

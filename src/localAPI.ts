@@ -155,6 +155,7 @@ class VestaboardLocalAPI {
   convertToCharCodeArray = convertToCharCodeArray;
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
+  isValidBoard = isValidBoard;
 }
 
 export default VestaboardLocalAPI;

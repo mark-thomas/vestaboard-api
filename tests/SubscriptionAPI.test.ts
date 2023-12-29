@@ -3,12 +3,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { VestaSubscription, createVestaboard } from '../src/index';
-
 import { SubscriptionAPIConfig, VestaboardControlMode } from '../src/types';
+
 import { characterCode } from '../src/values';
 
 const subscriptionConfig: SubscriptionAPIConfig = {
-  mode: VestaboardControlMode.Subscription,
   apiKey: process.env.SUBSCRIPTION_API_KEY as string,
   apiSecret: process.env.SUBSCRIPTION_API_SECRET as string,
 };
@@ -18,7 +17,10 @@ describe('VestaSubscription tests', () => {
   let vesta: VestaSubscription;
 
   beforeAll(() => {
-    vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
+    vesta = createVestaboard(
+      VestaboardControlMode.Subscription,
+      subscriptionConfig
+    ) as VestaSubscription;
   });
 
   test('offline: createVestaboard returns a VestaSubscription', () => {
@@ -76,7 +78,10 @@ describe('VestaSubscription postMessage tests', () => {
   let vesta: VestaSubscription;
 
   beforeAll(() => {
-    vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
+    vesta = createVestaboard(
+      VestaboardControlMode.Subscription,
+      subscriptionConfig
+    ) as VestaSubscription;
   });
 
   test('clear the board and wait for rate limit', async () => {
