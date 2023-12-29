@@ -1,7 +1,7 @@
 import { BoardCharArray } from './values';
 import { AxiosResponse } from 'axios';
 import { APIOptions, LocalAPIConfig, LocalPostResponse } from './types';
-import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString } from './sharedFunctions';
+import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString, isValidBoard } from './sharedFunctions';
 declare class VestaboardLocalAPI {
     private localAPIEnablementToken?;
     private baseUrl;
@@ -23,5 +23,6 @@ declare class VestaboardLocalAPI {
     convertToCharCodeArray: typeof convertToCharCodeArray;
     makeBoard: typeof makeBoard;
     characterArrayFromString: typeof characterArrayFromString;
+    isValidBoard: typeof isValidBoard;
 }
 export default VestaboardLocalAPI;

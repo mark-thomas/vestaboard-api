@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { BoardCharArray } from './values';
 import { APIOptions, RWAPIConfig, RWBoardParsed, RWMesageResponse } from './types';
-import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString } from './sharedFunctions';
+import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString, isValidBoard } from './sharedFunctions';
 declare class VestaboardRWAPI {
     private readWriteKey;
     baseUrl: string;
@@ -17,5 +17,6 @@ declare class VestaboardRWAPI {
     convertToCharCodeArray: typeof convertToCharCodeArray;
     makeBoard: typeof makeBoard;
     characterArrayFromString: typeof characterArrayFromString;
+    isValidBoard: typeof isValidBoard;
 }
 export default VestaboardRWAPI;

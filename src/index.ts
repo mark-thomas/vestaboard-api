@@ -28,7 +28,7 @@ export function createVestaboard(
   }
 }
 
-export { VestaSubscription, VestaRW, VestaLocal };
+export { VestaSubscription, VestaRW, VestaLocal, VestaboardControlMode };
 
 //
 // export enum VestaboardControlMode {

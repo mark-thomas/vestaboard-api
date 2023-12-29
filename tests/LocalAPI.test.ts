@@ -67,7 +67,10 @@ describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
   let existingBoard: BoardCharArray;
 
   beforeAll(() => {
-    vestaLocal = createVestaboard(localConfig) as VestaLocal;
+    vestaLocal = createVestaboard(
+      VestaboardControlMode.Local,
+      localConfig
+    ) as VestaLocal;
     helloWorld = `Hello World!\n${new Date().toLocaleString('en-US', {
       dateStyle: 'short',
       timeStyle: 'long',
