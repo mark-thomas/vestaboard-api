@@ -21,39 +21,39 @@ describe('vestaboard local API tests', () => {
     vestaLocal = createVestaboard(localConfig) as VestaLocal;
   });
 
-  test('createVestaboard returns a VestaLocal', () => {
+  test('offline: createVestaboard returns a VestaLocal', () => {
     expect(vestaLocal).toBeInstanceOf(VestaLocal);
   });
 
-  test('Vesta object has either an enablement key or a local key', () => {
+  test('offline: Vesta object has either an enablement key or a local key', () => {
     expect(vestaLocal.isLocalKeyOrEnablementSet()).toBeTruthy();
   });
 
-  test('Vesta object has a local ip address', () => {
+  test('offline: Vesta object has a local ip address', () => {
     expect(vestaLocal.getLocalIP()).toMatch(localConfig.localIPAddress);
   });
   // A test for isLocalKeyOrEnablementSet()
-  test('Vesta object is configured', () => {
+  test('offline: Vesta object is configured', () => {
     expect(vestaLocal.isConfiguredWithIPAndKey()).toBeTruthy();
   });
 
-  test('Vesta object has request method', () => {
+  test('offline: Vesta object has request method', () => {
     expect(vestaLocal.request).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has postMessage method', () => {
+  test('offline: Vesta object has postMessage method', () => {
     expect(vestaLocal.postMessage).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has characterArrayFromString method', () => {
+  test('offline: Vesta object has characterArrayFromString method', () => {
     expect(vestaLocal.characterArrayFromString).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has clearBoardTo method', () => {
+  test('offline: Vesta object has clearBoardTo method', () => {
     expect(vestaLocal.clearBoardTo).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has isSpecial method', () => {
+  test('offline: Vesta object has isSpecial method', () => {
     expect(vestaLocal.isSpecial).toBeInstanceOf(Function);
   });
 });
@@ -73,7 +73,7 @@ describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
     characterHelloWorld = characterArrayFromString(helloWorld);
   });
 
-  test(`read current message results in last posted message`, async () => {
+  test(`online: read current message results in last posted message`, async () => {
     const currentMessage = await vestaLocal.readFromBoard();
     // The message needs to be a valid BoardCharArray
 
@@ -81,7 +81,7 @@ describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
     existingBoard = currentMessage;
   });
 
-  test(`make a one bit change to the existing board`, async () => {
+  test(`online: make a one bit change to the existing board`, async () => {
     // if there is a current message change one bit (5,21) to 68
     let oneBitChange: BoardCharArray;
     const randomKey =
@@ -103,12 +103,12 @@ describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
     expect(postResponse).toHaveProperty('ok');
   });
 
-  test(`post hello world to local board`, async () => {
+  test(`online: post hello world to local board`, async () => {
     const postResponse = await vestaLocal.postMessage(characterHelloWorld);
     expect(postResponse).toHaveProperty('ok');
   });
 
-  test(`local API fails on a text/string based message`, async () => {
+  test(`online: local API fails on a text/string based message`, async () => {
     try {
       // This test should fail because the local API does not support text based
       // messages and will throw an error

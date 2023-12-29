@@ -21,44 +21,44 @@ describe('VestaSubscription tests', () => {
     vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
   });
 
-  test('createVestaboard returns a VestaSubscription', () => {
+  test('offline: createVestaboard returns a VestaSubscription', () => {
     // const vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
     expect(vesta).toBeInstanceOf(VestaSubscription);
   });
 
-  test('Vesta object has baseUrl property', () => {
+  test('offline: Vesta object has baseUrl property', () => {
     // const vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
     expect(vesta.baseUrl).toBeDefined();
   });
 
-  test('Vesta object has request method', () => {
+  test('offline: Vesta object has request method', () => {
     expect(vesta.request).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has getSubscriptions method', () => {
+  test('offline: Vesta object has getSubscriptions method', () => {
     // const vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
     expect(vesta.getSubscriptions).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has postMessage method', () => {
+  test('offline: Vesta object has postMessage method', () => {
     // const vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
     expect(vesta.postMessage).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has characterArrayFromString method', () => {
+  test('offline: Vesta object has characterArrayFromString method', () => {
     // const vesta = createVestaboard(subscriptionConfig) as VestaSubscription;
     expect(vesta.characterArrayFromString).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has clearBoardTo method', () => {
+  test('offline: Vesta object has clearBoardTo method', () => {
     expect(vesta.clearBoardTo).toBeInstanceOf(Function);
   });
   // test that isSpecial exists on the class
-  test('Vesta object has isSpecial method', () => {
+  test('offline: Vesta object has isSpecial method', () => {
     expect(vesta.isSpecial).toBeInstanceOf(Function);
   });
 
-  test('getSubscriptions returns an array of Subscription objects', async () => {
+  test('offline: getSubscriptions returns an array of Subscription objects', async () => {
     const subscriptions = await vesta.getSubscriptions();
     expect(Array.isArray(subscriptions)).toBe(true);
     expect(subscriptions[0]).toHaveProperty('id');

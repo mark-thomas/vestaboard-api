@@ -25,31 +25,31 @@ describe('vestaboardRWAPI tests', () => {
     characterHelloWorld = characterArrayFromString(helloWorld);
   });
 
-  test('createVestaboard returns a VestaRW', () => {
+  test('offline: createVestaboard returns a VestaRW', () => {
     expect(vestaRW).toBeInstanceOf(VestaRW);
   });
 
-  test('Vesta object has baseUrl property', () => {
+  test('offline: Vesta object has baseUrl property', () => {
     expect(vestaRW.isReadWriteKeySet).toBeTruthy();
   });
 
-  test('Vesta object has request method', () => {
+  test('offline: Vesta object has request method', () => {
     expect(vestaRW.request).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has postMessage method', () => {
+  test('offline: Vesta object has postMessage method', () => {
     expect(vestaRW.postMessage).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has characterArrayFromString method', () => {
+  test('offline: Vesta object has characterArrayFromString method', () => {
     expect(vestaRW.characterArrayFromString).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has clearBoardTo method', () => {
+  test('offline: Vesta object has clearBoardTo method', () => {
     expect(vestaRW.clearBoardTo).toBeInstanceOf(Function);
   });
 
-  test('Vesta object has isSpecial method', () => {
+  test('offline: Vesta object has isSpecial method', () => {
     expect(vestaRW.isSpecial).toBeInstanceOf(Function);
   });
 });

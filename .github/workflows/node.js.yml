@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run test
+      - run: npm run test-offline
         env:
           SUBSCRIPTION_API_SECRET: ${{ secrets.SUBSCRIPTION_API_SECRET }}
           SUBSCRIPTION_API_KEY: ${{ secrets.SUBSCRIPTION_API_KEY }}
