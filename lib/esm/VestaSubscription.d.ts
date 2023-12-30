@@ -4,9 +4,8 @@
  * @return {Vesta} A new instance of Vesta
  */
 import { AxiosResponse } from 'axios';
-import { BoardCharArray } from './values';
-import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString, isValidBoard } from './sharedFunctions';
-import { APIOptions, Subscription, MessageResponse, SubscriptionAPIConfig } from './types';
+import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString, isValidBoard, convertBoardLayoutToString } from './sharedFunctions';
+import { APIOptions, Subscription, MessageResponse, SubscriptionAPIConfig, BoardCharArray } from './types';
 export default class Vesta {
     apiKey: string;
     private apiSecret;
@@ -23,4 +22,5 @@ export default class Vesta {
     makeBoard: typeof makeBoard;
     characterArrayFromString: typeof characterArrayFromString;
     isValidBoard: typeof isValidBoard;
+    convertBoardLayoutToString: typeof convertBoardLayoutToString;
 }

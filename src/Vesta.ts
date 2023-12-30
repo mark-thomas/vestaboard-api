@@ -1,18 +1,13 @@
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
-import {
-  characterCode,
-  specialChar,
-  emptyBoard,
-  LINE_LENGTH,
-  BoardCharArray,
-  Line,
-} from './values';
+import { characterCode, specialChar, emptyBoard, LINE_LENGTH } from './values';
 import {
   APIOptions,
   Subscription,
   ViewerResponse,
   MessageResponse,
   SubscriptionAPIConfig,
+  BoardCharArray,
+  Line,
 } from './types';
 
 export default class Vesta {

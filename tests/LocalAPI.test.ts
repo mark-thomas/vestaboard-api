@@ -3,8 +3,12 @@ import dotenv from 'dotenv';
 import { characterCode } from './../src/values';
 import { VestaLocal, createVestaboard } from '../src/index';
 import { characterArrayFromString, isValidBoard } from '../src/sharedFunctions';
-import { LocalAPIConfig, VestaboardControlMode } from '../src/types';
-import { BoardCharArray } from '../src/values';
+import {
+  LocalAPIConfig,
+  VestaboardControlMode,
+  BoardCharArray,
+} from '../src/types';
+
 dotenv.config();
 
 const localConfig: LocalAPIConfig = {
@@ -57,6 +61,9 @@ describe('vestaboard local API tests', () => {
 
   test('offline: Vesta object has isSpecial method', () => {
     expect(vestaLocal.isSpecial).toBeInstanceOf(Function);
+  });
+  test('offline: vesta object has convertToCharCodeArray method', () => {
+    expect(vestaLocal.convertToCharCodeArray).toBeInstanceOf(Function);
   });
 });
 

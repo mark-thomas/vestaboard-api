@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { BoardCharArray } from './values';
-import { APIOptions, Subscription, ViewerResponse, MessageResponse, SubscriptionAPIConfig } from './types';
+import { APIOptions, Subscription, ViewerResponse, MessageResponse, SubscriptionAPIConfig, BoardCharArray } from './types';
 export default class Vesta {
     private apiKey;
     private apiSecret;

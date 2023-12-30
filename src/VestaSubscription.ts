@@ -12,7 +12,7 @@ import axios, {
   AxiosError,
 } from 'axios';
 
-import { BoardCharArray, emptyBoard, Line, characterCode } from './values';
+import { emptyBoard, characterCode } from './values';
 
 import {
   isSpecial,
@@ -22,6 +22,7 @@ import {
   makeBoard,
   characterArrayFromString,
   isValidBoard,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 
 import {
@@ -29,6 +30,8 @@ import {
   Subscription,
   MessageResponse,
   SubscriptionAPIConfig,
+  BoardCharArray,
+  Line,
 } from './types';
 
 export default class Vesta {
@@ -132,4 +135,5 @@ export default class Vesta {
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
+  convertBoardLayoutToString = convertBoardLayoutToString;
 }

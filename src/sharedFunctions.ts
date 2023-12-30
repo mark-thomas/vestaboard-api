@@ -1,10 +1,10 @@
+import { BoardCharArray, Line } from './types';
 import {
-  BoardCharArray,
   characterCode,
   specialChar,
   emptyBoard,
   LINE_LENGTH,
-  Line,
+  characterCodeArray,
 } from './values';
 
 export function characterArrayFromString(string: string): BoardCharArray {
@@ -59,16 +59,15 @@ export function convertToCharCodeArray(string: string): number[] {
   const stringWithReturn = string.replace(/\n/g, ' *return ');
 
   // If we remove the escape character, is the string now valid?
-  const cleanedString = stringWithReturn.replace(/[*]/g, '');
 
-  const containsInvalidWithoutEscapeChar =
-    containsNonDisplayCharacter(cleanedString);
+  let containsInvalidWithoutEscapeChar = false;
 
-  // if (containsInvalidCharacter) {
-  //   // This string is invalid
-  //   // throw new Error('Input contains one or more invalid characters.');
-
-  // }
+  if (containsInvalidCharacter) {
+    // This string is invalid
+    const cleanedString = stringWithReturn.replace(/[*]/g, '');
+    containsInvalidWithoutEscapeChar =
+      containsNonDisplayCharacter(cleanedString);
+  }
 
   if (containsInvalidWithoutEscapeChar) {
     // This string is invalid, even without the escape character;
@@ -178,4 +177,69 @@ export function isValidBoard(message: BoardCharArray): boolean {
   }
 
   return true;
+}
+
+export function convertBoardLayoutToString(board: BoardCharArray): string {
+  let boardString = '';
+  // Loop through the board
+  for (let i = 0; i < board.length; i++) {
+    // Loop through each row
+    for (let j = 0; j < board[i].length; j++) {
+      // Check if the value is 0
+      if (board[i][j] === 0) {
+        // Check if the rest of the row is also 0
+        if (board[i].slice(j).every((value) => value === 0)) {
+          // Append newline character to the board string
+          boardString += '\n';
+          break; // Exit the inner loop
+        }
+      }
+      // Add the character to the string
+      boardString += lookupCharacter(board[i][j]);
+      if (j === board[i].length - 1) {
+        boardString += '\n';
+      }
+    }
+  }
+  // Return the string
+  return boardString;
+}
+
+function lookupCharacter(code: number): string {
+  const foundCharacter = characterCodeArray[code];
+
+  switch (foundCharacter) {
+    case 'return':
+    case '*return':
+      return '\n';
+    case 'redBlock':
+    case '*redBlock':
+      return '🟥';
+    case 'orangeBlock':
+    case '*orangeBlock':
+      return '🟧';
+    case 'yellowBlock':
+    case '*yellowBlock':
+      return '🟨';
+    case 'greenBlock':
+    case '*greenBlock':
+      return '🟩';
+    case 'blueBlock':
+    case '*blueBlock':
+      return '🟦';
+    case 'violetBlock':
+    case '*violetBlock':
+      return '🟪';
+    case 'whiteBlock':
+    case '*whiteBlock':
+      return '⬜️';
+    case 'blackBlock':
+    case '*blackBlock':
+      return '⬛️';
+    case 'degreeSign':
+    case '*degreeSign':
+      return '°';
+    default:
+      return characterCodeArray[code] || '';
+  }
 }

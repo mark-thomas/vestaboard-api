@@ -1,8 +1,31 @@
 import { Method } from 'axios';
-import { BoardCharArray } from './values';
 
 // Configuration types
-
+export type BoardCharArray = [Line, Line, Line, Line, Line, Line];
+export type Line = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+];
 export enum VestaboardControlMode {
   Subscription = 'subscription',
   RW = 'rw',

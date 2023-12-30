@@ -1,4 +1,4 @@
-import { BoardCharArray, Line, characterCode, emptyBoard } from './values';
+import { characterCode, emptyBoard } from './values';
 
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
 
@@ -7,6 +7,8 @@ import {
   LocalAPIConfig,
   LocalPostResponse,
   LocalReadResponse,
+  BoardCharArray,
+  Line,
 } from './types';
 
 import {
@@ -17,6 +19,7 @@ import {
   makeBoard,
   characterArrayFromString,
   isValidBoard,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 
 class VestaboardLocalAPI {
@@ -156,6 +159,7 @@ class VestaboardLocalAPI {
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
+  convertBoardLayoutToString = convertBoardLayoutToString;
 }
 
 export default VestaboardLocalAPI;

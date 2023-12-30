@@ -2,8 +2,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { VestaRW, createVestaboard } from '../src/index';
 import { characterArrayFromString } from '../src/sharedFunctions';
-import { RWAPIConfig, VestaboardControlMode } from '../src/types';
-import { BoardCharArray } from '../src/values';
+import {
+  RWAPIConfig,
+  VestaboardControlMode,
+  BoardCharArray,
+} from '../src/types';
 
 const rwConfig: RWAPIConfig = {
   apiReadWriteKey: process.env.RW_API_KEY as string,
@@ -50,6 +53,9 @@ describe('vestaboardRWAPI tests', () => {
 
   test('offline: Vesta object has isSpecial method', () => {
     expect(vestaRW.isSpecial).toBeInstanceOf(Function);
+  });
+  test('offline: vesta object has convertToCharCodeArray method', () => {
+    expect(vestaRW.convertToCharCodeArray).toBeInstanceOf(Function);
   });
 });
 

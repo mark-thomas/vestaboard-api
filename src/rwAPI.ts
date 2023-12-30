@@ -6,7 +6,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { BoardCharArray, Line, characterCode, emptyBoard } from './values';
+import { characterCode, emptyBoard } from './values';
 
 import {
   APIOptions,
@@ -14,6 +14,8 @@ import {
   RWBoardParsed,
   RWBoardReadResponse,
   RWMesageResponse,
+  BoardCharArray,
+  Line,
 } from './types';
 
 import {
@@ -24,6 +26,7 @@ import {
   makeBoard,
   characterArrayFromString,
   isValidBoard,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 
 class VestaboardRWAPI {
@@ -129,6 +132,7 @@ class VestaboardRWAPI {
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
+  convertBoardLayoutToString = convertBoardLayoutToString;
 }
 
 export default VestaboardRWAPI;
