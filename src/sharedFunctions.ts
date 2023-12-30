@@ -1,11 +1,5 @@
-import {
-  BoardCharArray,
-  characterCode,
-  specialChar,
-  emptyBoard,
-  LINE_LENGTH,
-  Line,
-} from './values';
+import { BoardCharArray, Line } from './types';
+import { characterCode, specialChar, emptyBoard, LINE_LENGTH } from './values';
 
 export function characterArrayFromString(string: string): BoardCharArray {
   const charBoard = makeBoard(string);
@@ -59,16 +53,15 @@ export function convertToCharCodeArray(string: string): number[] {
   const stringWithReturn = string.replace(/\n/g, ' *return ');
 
   // If we remove the escape character, is the string now valid?
-  const cleanedString = stringWithReturn.replace(/[*]/g, '');
 
-  const containsInvalidWithoutEscapeChar =
-    containsNonDisplayCharacter(cleanedString);
+  let containsInvalidWithoutEscapeChar = false;
 
-  // if (containsInvalidCharacter) {
-  //   // This string is invalid
-  //   // throw new Error('Input contains one or more invalid characters.');
-
-  // }
+  if (containsInvalidCharacter) {
+    // This string is invalid
+    const cleanedString = stringWithReturn.replace(/[*]/g, '');
+    containsInvalidWithoutEscapeChar =
+      containsNonDisplayCharacter(cleanedString);
+  }
 
   if (containsInvalidWithoutEscapeChar) {
     // This string is invalid, even without the escape character;

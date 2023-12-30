@@ -1,4 +1,4 @@
-import { BoardCharArray, Line, characterCode, emptyBoard } from './values';
+import { characterCode, emptyBoard } from './values';
 
 import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
 
@@ -7,6 +7,8 @@ import {
   LocalAPIConfig,
   LocalPostResponse,
   LocalReadResponse,
+  BoardCharArray,
+  Line,
 } from './types';
 
 import {

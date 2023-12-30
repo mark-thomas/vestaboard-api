@@ -1,4 +1,4 @@
-import { BoardCharArray } from './values';
+import { BoardCharArray } from './types';
 export declare function characterArrayFromString(string: string): BoardCharArray;
 export declare function isSpecial(char: string): boolean;
 export declare function containsEscapeCharacter(input: string): boolean;

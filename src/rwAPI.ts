@@ -6,7 +6,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { BoardCharArray, Line, characterCode, emptyBoard } from './values';
+import { characterCode, emptyBoard } from './values';
 
 import {
   APIOptions,
@@ -14,6 +14,8 @@ import {
   RWBoardParsed,
   RWBoardReadResponse,
   RWMesageResponse,
+  BoardCharArray,
+  Line,
 } from './types';
 
 import {

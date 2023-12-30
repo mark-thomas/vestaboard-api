@@ -1,6 +1,5 @@
-import { BoardCharArray } from './values';
 import { AxiosResponse } from 'axios';
-import { APIOptions, LocalAPIConfig, LocalPostResponse } from './types';
+import { APIOptions, LocalAPIConfig, LocalPostResponse, BoardCharArray } from './types';
 import { isSpecial, containsEscapeCharacter, containsNonDisplayCharacter, convertToCharCodeArray, makeBoard, characterArrayFromString, isValidBoard } from './sharedFunctions';
 declare class VestaboardLocalAPI {
     private localAPIEnablementToken?;

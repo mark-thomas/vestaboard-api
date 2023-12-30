@@ -7,8 +7,10 @@ import {
   RWAPIConfig,
   SubscriptionAPIConfig,
   VestaboardControlMode,
+  BoardCharArray,
+  Line,
 } from './types';
-
+import { characterCode } from './values';
 export function createVestaboard(
   mode: VestaboardControlMode,
   config: APIConfig
@@ -28,7 +30,15 @@ export function createVestaboard(
   }
 }
 
-export { VestaSubscription, VestaRW, VestaLocal, VestaboardControlMode };
+export {
+  VestaSubscription,
+  VestaRW,
+  VestaLocal,
+  VestaboardControlMode,
+  characterCode,
+  BoardCharArray,
+  Line,
+};
 
 //
 // export enum VestaboardControlMode {

@@ -12,7 +12,7 @@ import axios, {
   AxiosError,
 } from 'axios';
 
-import { BoardCharArray, emptyBoard, Line, characterCode } from './values';
+import { emptyBoard, characterCode } from './values';
 
 import {
   isSpecial,
@@ -29,6 +29,8 @@ import {
   Subscription,
   MessageResponse,
   SubscriptionAPIConfig,
+  BoardCharArray,
+  Line,
 } from './types';
 
 export default class Vesta {

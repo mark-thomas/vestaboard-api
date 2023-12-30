@@ -1,3 +1,5 @@
+import { BoardCharArray, Line } from './types';
+
 type CharacterCode = {
   [key in string | number]: number;
 };
@@ -131,31 +133,6 @@ export const specialChar = [
 ];
 
 export const LINE_LENGTH = 22;
-export type Line = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number
-];
 
-export type BoardCharArray = [Line, Line, Line, Line, Line, Line];
 const emptyLine = new Array(LINE_LENGTH).fill(0) as Line;
 export const emptyBoard = new Array(6).fill(emptyLine) as BoardCharArray;

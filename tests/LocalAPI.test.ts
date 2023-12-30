@@ -3,8 +3,12 @@ import dotenv from 'dotenv';
 import { characterCode } from './../src/values';
 import { VestaLocal, createVestaboard } from '../src/index';
 import { characterArrayFromString, isValidBoard } from '../src/sharedFunctions';
-import { LocalAPIConfig, VestaboardControlMode } from '../src/types';
-import { BoardCharArray } from '../src/values';
+import {
+  LocalAPIConfig,
+  VestaboardControlMode,
+  BoardCharArray,
+} from '../src/types';
+
 dotenv.config();
 
 const localConfig: LocalAPIConfig = {
