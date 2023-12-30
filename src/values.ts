@@ -6,11 +6,8 @@ type CharacterCode = {
 
 export const characterCode: CharacterCode = {
   ' ': 0, // Blank (Black on black vestaboard, white on white vestaboard)
-  A: 1,
   a: 1,
   b: 2,
-  B: 2,
-  C: 3,
   c: 3,
   d: 4,
   e: 5,
@@ -35,6 +32,9 @@ export const characterCode: CharacterCode = {
   x: 24,
   y: 25,
   z: 26,
+  A: 1,
+  B: 2,
+  C: 3,
   D: 4,
   E: 5,
   F: 6,
@@ -87,8 +87,8 @@ export const characterCode: CharacterCode = {
   '.': 56,
   '/': 59,
   '?': 60,
-  degreeSign: 62,
   '°': 62,
+  degreeSign: 62,
   redBlock: 63,
   orangeBlock: 64,
   yellowBlock: 65,
@@ -108,6 +108,15 @@ export const characterCode: CharacterCode = {
   '*whiteBlock': 69,
   '*blackBlock': 70,
 };
+
+export const characterCodeArray: (string | undefined)[] = Object.entries(
+  characterCode
+).reduce((acc: (string | undefined)[], [key, value]) => {
+  if (acc.indexOf(key) === -1) {
+    acc[value] = key;
+  }
+  return acc;
+}, []);
 
 export const specialChar = [
   'degreeSign',

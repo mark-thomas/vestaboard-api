@@ -10,7 +10,9 @@ import {
   BoardCharArray,
   Line,
 } from './types';
-import { characterCode } from './values';
+
+import { characterCode, characterCodeArray } from './values';
+
 export function createVestaboard(
   mode: VestaboardControlMode,
   config: APIConfig
@@ -36,6 +38,7 @@ export {
   VestaLocal,
   VestaboardControlMode,
   characterCode,
+  characterCodeArray,
   BoardCharArray,
   Line,
 };
