@@ -28,7 +28,7 @@ const testBoard = [
 ] as BoardCharArray;
 
 const testBoardString =
-  '⬜️🟥🟧🟨🟩🟦🟪⬛️              ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890       !@#$%&°()-=               +-;\'",./                  SPACE         ';
+  '⬜️🟥🟧🟨🟩🟦🟪⬛️\nABCDEFGHIJKLMNOPQRSTUV\nWXYZ01234567890\n!@#$%&°()-=\n    +-;\'",./\n        SPACE\n';
 describe('sharedFunctions', () => {
   describe('offline characterArrayFromString', () => {
     it('should convert a string to a character array', () => {
