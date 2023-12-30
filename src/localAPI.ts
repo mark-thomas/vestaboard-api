@@ -19,6 +19,7 @@ import {
   makeBoard,
   characterArrayFromString,
   isValidBoard,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 
 class VestaboardLocalAPI {
@@ -158,6 +159,7 @@ class VestaboardLocalAPI {
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
+  convertBoardLayoutToString = convertBoardLayoutToString;
 }
 
 export default VestaboardLocalAPI;

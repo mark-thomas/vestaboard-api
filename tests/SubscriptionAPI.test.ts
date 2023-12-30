@@ -68,6 +68,9 @@ describe('VestaSubscription tests', () => {
     // console.log(subscriptions[0]);
     // firstSubscription = subscriptions[0].id; // Save the first subscription to the variable
   });
+  test('offline: vesta object has convertToCharCodeArray method', () => {
+    expect(vesta.convertToCharCodeArray).toBeInstanceOf(Function);
+  });
 
   // Create a test that uses the
 });

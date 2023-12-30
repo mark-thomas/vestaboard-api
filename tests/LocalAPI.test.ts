@@ -62,6 +62,9 @@ describe('vestaboard local API tests', () => {
   test('offline: Vesta object has isSpecial method', () => {
     expect(vestaLocal.isSpecial).toBeInstanceOf(Function);
   });
+  test('offline: vesta object has convertToCharCodeArray method', () => {
+    expect(vestaLocal.convertToCharCodeArray).toBeInstanceOf(Function);
+  });
 });
 
 describe('vestaboardLocalAPI post tests requiring real key and IP', () => {

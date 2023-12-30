@@ -26,6 +26,7 @@ import {
   makeBoard,
   characterArrayFromString,
   isValidBoard,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 
 class VestaboardRWAPI {
@@ -131,6 +132,7 @@ class VestaboardRWAPI {
   makeBoard = makeBoard;
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
+  convertBoardLayoutToString = convertBoardLayoutToString;
 }
 
 export default VestaboardRWAPI;

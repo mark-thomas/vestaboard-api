@@ -6,3 +6,4 @@ export declare function containsNonDisplayCharacter(input: string): boolean;
 export declare function convertToCharCodeArray(string: string): number[];
 export declare function makeBoard(string: string): BoardCharArray;
 export declare function isValidBoard(message: BoardCharArray): boolean;
+export declare function convertBoardLayoutToString(board: BoardCharArray): string;

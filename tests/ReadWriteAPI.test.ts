@@ -54,6 +54,9 @@ describe('vestaboardRWAPI tests', () => {
   test('offline: Vesta object has isSpecial method', () => {
     expect(vestaRW.isSpecial).toBeInstanceOf(Function);
   });
+  test('offline: vesta object has convertToCharCodeArray method', () => {
+    expect(vestaRW.convertToCharCodeArray).toBeInstanceOf(Function);
+  });
 });
 
 describe('vestaboardRWAPI post tests with rate limiting', () => {
