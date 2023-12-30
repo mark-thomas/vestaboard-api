@@ -30,7 +30,7 @@ const testBoard = [
 const testBoardString =
   '⬜️🟥🟧🟨🟩🟦🟪⬛️              ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890       !@#$%&°()-=               +-;\'",./                  SPACE         ';
 describe('sharedFunctions', () => {
-  describe('characterArrayFromString', () => {
+  describe('offline characterArrayFromString', () => {
     it('should convert a string to a character array', () => {
       const result = characterArrayFromString(
         'Sample test string *greenBlock with a special character!'
@@ -39,7 +39,7 @@ describe('sharedFunctions', () => {
     });
   });
 
-  describe('isSpecial', () => {
+  describe('offline isSpecial', () => {
     it('should return true for a special character', () => {
       const result = isSpecial('*redBlock');
       expect(result).toBe(true);
@@ -51,45 +51,43 @@ describe('sharedFunctions', () => {
     });
   });
 
-  describe('containsEscapeCharacter', () => {
-    it('should return true if the input contains an escape character', () => {
+  describe('offline containsEscapeCharacter', () => {
+    it('should return true if the input contains an escape character offline', () => {
       const result = containsEscapeCharacter('test*');
       expect(result).toBe(true);
     });
 
-    it('should return false if the input does not contain an escape character', () => {
+    it('should return false if the input does not contain an escape character offline', () => {
       const result = containsEscapeCharacter('test');
       expect(result).toBe(false);
     });
   });
 
-  describe('containsNonDisplayCharacter', () => {
-    it('should return true if the input contains a non-display character', () => {
+  describe('offline containsNonDisplayCharacter', () => {
+    it('should return true if the input contains a non-display character offline', () => {
       const result = containsNonDisplayCharacter('test^');
       expect(result).toBe(true);
     });
 
-    it('should return false if the input does not contain a non-display character', () => {
+    it('should return false if the input does not contain a non-display character offline', () => {
       const result = containsNonDisplayCharacter('test');
       expect(result).toBe(false);
     });
   });
 
-  describe('convertToCharCodeArray', () => {
-    describe('convertToCharCodeArray', () => {
-      it('should convert a string to a character code array', () => {
-        const result = convertToCharCodeArray('test');
-        expect(result).toBeInstanceOf(Array);
-        for (const char of result) {
-          expect(typeof char).toBe('number');
-          expect(Object.values(characterCode).includes(char)).toBe(true);
-        }
-      });
+  describe('offline convertToCharCodeArray', () => {
+    it('should convert a string to a character code array offline', () => {
+      const result = convertToCharCodeArray('test');
+      expect(result).toBeInstanceOf(Array);
+      for (const char of result) {
+        expect(typeof char).toBe('number');
+        expect(Object.values(characterCode).includes(char)).toBe(true);
+      }
     });
   });
 
-  describe('makeBoard', () => {
-    it('should create a board from a string', () => {
+  describe('offline makeBoard', () => {
+    it('should create a board from a string offline', () => {
       const result = makeBoard(
         'Hello world! *redBlock, *greenBlock this is a test *return 1234589320'
       );
@@ -98,24 +96,24 @@ describe('sharedFunctions', () => {
     });
   });
 
-  describe('isValidBoard', () => {
-    it('should return true for a valid board', () => {
+  describe('offline isValidBoard', () => {
+    it('should return true for a valid board offline', () => {
       const board = Array(6).fill(Array(22).fill(0)) as BoardCharArray;
       const result = isValidBoard(board);
       expect(result).toBe(true);
     });
-    it('should return true for an valid board of some complexity', () => {
+    it('should return true for an valid board of some complexity offline', () => {
       const result = isValidBoard(testBoard);
       expect(result).toBe(true);
     });
-    it('should return false for an invalid board', () => {
+    it('should return false for an invalid board offline', () => {
       const board = Array(5).fill(Array(22).fill(0)) as BoardCharArray;
       const result = isValidBoard(board);
       expect(result).toBe(false);
     });
   });
 
-  describe('convertBoardLayoutToString', () => {
+  describe('offline convertBoardLayoutToString offline', () => {
     it('should convert a board layout to a string', () => {
       const result = convertBoardLayoutToString(testBoard);
       expect(result).toEqual(testBoardString);
