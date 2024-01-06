@@ -32,19 +32,48 @@ export declare enum VestaboardControlMode {
 export interface SubscriptionAPIConfig {
     apiKey: string;
     apiSecret: string;
+    mode: VestaboardControlMode.Subscription;
+}
+export declare class SubscriptionAPIConfig {
+    apiKey: string;
+    apiSecret: string;
+    mode: VestaboardControlMode.Subscription;
+    constructor(apiKey: string, apiSecret: string, mode?: VestaboardControlMode.Subscription);
 }
 export interface RWAPIConfig {
     apiReadWriteKey: string;
+    mode: VestaboardControlMode.RW;
+}
+export declare class RWAPIConfig {
+    apiReadWriteKey: string;
+    mode: VestaboardControlMode.RW;
+    constructor(apiReadWriteKey: string, mode?: VestaboardControlMode.RW);
 }
 export interface LocalAPIConfigWithKey {
     localIPAddress: string;
     localApiKey: string;
+    mode: VestaboardControlMode.Local;
     localAPIEnablementToken?: string;
+}
+export declare class LocalAPIConfigWithKey {
+    localIPAddress: string;
+    localApiKey: string;
+    mode: VestaboardControlMode.Local;
+    localAPIEnablementToken?: string;
+    constructor(localIPAddress: string, localApiKey: string, mode?: VestaboardControlMode.Local, localAPIEnablementToken?: string);
 }
 export interface LocalAPIConfigWithToken {
     localIPAddress: string;
     localAPIEnablementToken: string;
+    mode: VestaboardControlMode.Local;
     localApiKey?: string;
+}
+export declare class LocalAPIConfigWithToken {
+    localIPAddress: string;
+    localAPIEnablementToken: string;
+    mode: VestaboardControlMode.Local;
+    localApiKey?: string;
+    constructor(localIPAddress: string, localAPIEnablementToken: string, mode?: VestaboardControlMode.Local, localApiKey?: string);
 }
 export type LocalAPIConfig = LocalAPIConfigWithKey | LocalAPIConfigWithToken;
 export type APIConfig = SubscriptionAPIConfig | RWAPIConfig | LocalAPIConfig;
