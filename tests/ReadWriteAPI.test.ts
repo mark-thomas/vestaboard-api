@@ -8,9 +8,7 @@ import {
   BoardCharArray,
 } from '../src/types';
 
-const rwConfig: RWAPIConfig = {
-  apiReadWriteKey: process.env.RW_API_KEY as string,
-};
+const rwConfig = new RWAPIConfig(process.env.RW_API_KEY as string);
 // // Using the rwConfig we are going to create a test suite similar to the one
 // // above for subscriptions, but using the RW API
 describe('vestaboardRWAPI tests', () => {

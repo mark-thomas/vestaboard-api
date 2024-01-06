@@ -41,6 +41,10 @@ export {
   characterCodeArray,
   BoardCharArray,
   Line,
+  APIConfig,
+  SubscriptionAPIConfig,
+  RWAPIConfig,
+  LocalAPIConfig,
 };
 
 //

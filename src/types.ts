@@ -34,24 +34,87 @@ export enum VestaboardControlMode {
 export interface SubscriptionAPIConfig {
   apiKey: string;
   apiSecret: string;
-  // mode: VestaboardControlMode.Subscription;
+  mode: VestaboardControlMode.Subscription;
+}
+export class SubscriptionAPIConfig {
+  apiKey: string;
+  apiSecret: string;
+  mode: VestaboardControlMode.Subscription;
+
+  constructor(
+    apiKey: string,
+    apiSecret: string,
+    mode: VestaboardControlMode.Subscription = VestaboardControlMode.Subscription
+  ) {
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
+    this.mode = mode;
+  }
 }
 export interface RWAPIConfig {
   apiReadWriteKey: string;
-  // mode: VestaboardControlMode.RW;
+  mode: VestaboardControlMode.RW;
+}
+export class RWAPIConfig {
+  apiReadWriteKey: string;
+  mode: VestaboardControlMode.RW;
+
+  constructor(
+    apiReadWriteKey: string,
+    mode: VestaboardControlMode.RW = VestaboardControlMode.RW
+  ) {
+    this.apiReadWriteKey = apiReadWriteKey;
+    this.mode = mode;
+  }
 }
 export interface LocalAPIConfigWithKey {
   localIPAddress: string;
   localApiKey: string;
-  // mode: VestaboardControlMode.Local;
+  mode: VestaboardControlMode.Local;
   localAPIEnablementToken?: string;
+}
+export class LocalAPIConfigWithKey {
+  localIPAddress: string;
+  localApiKey: string;
+  mode: VestaboardControlMode.Local;
+  localAPIEnablementToken?: string;
+
+  constructor(
+    localIPAddress: string,
+    localApiKey: string,
+    mode: VestaboardControlMode.Local = VestaboardControlMode.Local,
+    localAPIEnablementToken?: string
+  ) {
+    this.localIPAddress = localIPAddress;
+    this.localApiKey = localApiKey;
+    this.mode = mode;
+    this.localAPIEnablementToken = localAPIEnablementToken;
+  }
 }
 
 export interface LocalAPIConfigWithToken {
   localIPAddress: string;
   localAPIEnablementToken: string;
-  // mode: VestaboardControlMode.Local;
+  mode: VestaboardControlMode.Local;
   localApiKey?: string;
+}
+export class LocalAPIConfigWithToken {
+  localIPAddress: string;
+  localAPIEnablementToken: string;
+  mode: VestaboardControlMode.Local;
+  localApiKey?: string;
+
+  constructor(
+    localIPAddress: string,
+    localAPIEnablementToken: string,
+    mode: VestaboardControlMode.Local = VestaboardControlMode.Local,
+    localApiKey?: string
+  ) {
+    this.localIPAddress = localIPAddress;
+    this.localAPIEnablementToken = localAPIEnablementToken;
+    this.mode = mode;
+    this.localApiKey = localApiKey;
+  }
 }
 export type LocalAPIConfig = LocalAPIConfigWithKey | LocalAPIConfigWithToken;
 export type APIConfig = SubscriptionAPIConfig | RWAPIConfig | LocalAPIConfig;
