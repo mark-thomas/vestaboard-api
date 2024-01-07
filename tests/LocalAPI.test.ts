@@ -12,6 +12,7 @@ import {
 dotenv.config();
 
 const localConfig: LocalAPIConfig = {
+  mode: VestaboardControlMode.Local,
   localIPAddress: process.env.LOCAL_IP_ADDRESS as string,
   localApiKey: process.env.LOCAL_API_KEY as string,
 };

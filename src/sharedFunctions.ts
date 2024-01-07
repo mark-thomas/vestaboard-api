@@ -6,6 +6,7 @@ import {
   LINE_LENGTH,
   characterCodeArray,
 } from './values';
+import { IKeyCode } from './VB-Original-Types';
 
 export function characterArrayFromString(string: string): BoardCharArray {
   const charBoard = makeBoard(string);
@@ -49,7 +50,7 @@ export function containsNonDisplayCharacter(input: string): boolean {
 //   }
 //   return true;
 // }
-export function convertToCharCodeArray(string: string): number[] {
+export function convertToCharCodeArray(string: string): IKeyCode[] {
   // Does this string use an the escape character?
   const usesEscape = containsEscapeCharacter(string);
   // Does this string contain any invalid characters?
@@ -246,7 +247,7 @@ function lookupCharacter(code: number): string {
 interface Difference {
   row: number;
   col: number;
-  targetValue: number;
+  targetValue: IKeyCode;
 }
 
 // A wrapper function that uses findDifferences and createTransitionArrays to

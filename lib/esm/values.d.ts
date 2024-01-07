@@ -1,5 +1,5 @@
 import { BoardCharArray } from './types';
-type CharacterCode = {
+declare type CharacterCode = {
     [key in string | number]: number;
 };
 export declare const characterCode: CharacterCode;

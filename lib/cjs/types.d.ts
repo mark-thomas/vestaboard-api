@@ -1,29 +1,9 @@
 import { Method } from 'axios';
-export type BoardCharArray = [Line, Line, Line, Line, Line, Line];
-export type Line = [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
-];
+import { IKeyRow, IBoard, IKeyCode } from './VB-Original-Types';
+export type BoardCharArray = [Line, Line, Line, Line, Line, Line] | IBoard;
+export type Line = IKeyRow;
+export type VestaboardChar = IKeyCode;
+export type VestaboardLayout = BoardCharArray | IBoard;
 export declare enum VestaboardControlMode {
     Subscription = "subscription",
     RW = "rw",

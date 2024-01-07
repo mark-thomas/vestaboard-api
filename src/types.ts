@@ -1,36 +1,16 @@
 import { Method } from 'axios';
-
+import { IKeyRow, IBoard, IKeyCode } from './VB-Original-Types';
 // Configuration types
-export type BoardCharArray = [Line, Line, Line, Line, Line, Line];
-export type Line = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number
-];
+export type BoardCharArray = [Line, Line, Line, Line, Line, Line] | IBoard;
+export type Line = IKeyRow;
+export type VestaboardChar = IKeyCode;
+export type VestaboardLayout = BoardCharArray | IBoard;
 export enum VestaboardControlMode {
   Subscription = 'subscription',
   RW = 'rw',
   Local = 'local',
 }
+
 export interface SubscriptionAPIConfig {
   apiKey: string;
   apiSecret: string;
