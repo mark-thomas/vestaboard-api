@@ -10,6 +10,7 @@ import {
   BoardCharArray,
   Line,
   VestaboardLayout,
+  VestaboardChar,
 } from './types';
 
 import { characterCode, characterCodeArray } from './values';
@@ -47,6 +48,7 @@ export {
   RWAPIConfig,
   LocalAPIConfig,
   VestaboardLayout,
+  VestaboardChar,
 };
 
 //
