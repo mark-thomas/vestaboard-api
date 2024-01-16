@@ -9,6 +9,7 @@ import {
   VestaboardControlMode,
   BoardCharArray,
   Line,
+  VestaboardLayout,
 } from './types';
 
 import { characterCode, characterCodeArray } from './values';
@@ -45,6 +46,7 @@ export {
   SubscriptionAPIConfig,
   RWAPIConfig,
   LocalAPIConfig,
+  VestaboardLayout,
 };
 
 //
