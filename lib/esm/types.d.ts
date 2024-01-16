@@ -1,9 +1,9 @@
 import { Method } from 'axios';
 import { IKeyRow, IBoard, IKeyCode } from './VB-Original-Types';
-export declare type BoardCharArray = [Line, Line, Line, Line, Line, Line] | IBoard;
-export declare type Line = IKeyRow;
-export declare type VestaboardChar = IKeyCode;
-export declare type VestaboardLayout = BoardCharArray | IBoard;
+export type BoardCharArray = [Line, Line, Line, Line, Line, Line] | IBoard;
+export type Line = IKeyRow;
+export type VestaboardChar = IKeyCode;
+export type VestaboardLayout = BoardCharArray | IBoard;
 export declare enum VestaboardControlMode {
     Subscription = "subscription",
     RW = "rw",
@@ -55,8 +55,8 @@ export declare class LocalAPIConfigWithToken {
     localApiKey?: string;
     constructor(localIPAddress: string, localAPIEnablementToken: string, mode?: VestaboardControlMode.Local, localApiKey?: string);
 }
-export declare type LocalAPIConfig = LocalAPIConfigWithKey | LocalAPIConfigWithToken;
-export declare type APIConfig = SubscriptionAPIConfig | RWAPIConfig | LocalAPIConfig;
+export type LocalAPIConfig = LocalAPIConfigWithKey | LocalAPIConfigWithToken;
+export type APIConfig = SubscriptionAPIConfig | RWAPIConfig | LocalAPIConfig;
 export interface APIOptions {
     data?: string;
     method: Method;
