@@ -12,7 +12,7 @@ import {
   VestaboardLayout,
   VestaboardChar,
 } from './types';
-
+import { createTransitionBoards } from './sharedFunctions';
 import { characterCode, characterCodeArray } from './values';
 
 export function createVestaboard(
@@ -49,6 +49,7 @@ export {
   LocalAPIConfig,
   VestaboardLayout,
   VestaboardChar,
+  createTransitionBoards,
 };
 
 //
