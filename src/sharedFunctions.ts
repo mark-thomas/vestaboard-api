@@ -6,6 +6,7 @@ import {
   LINE_LENGTH,
   characterCodeArray,
 } from './values';
+import { IKeyCode } from './VB-Original-Types';
 
 export function characterArrayFromString(string: string): BoardCharArray {
   const charBoard = makeBoard(string);
@@ -49,7 +50,7 @@ export function containsNonDisplayCharacter(input: string): boolean {
 //   }
 //   return true;
 // }
-export function convertToCharCodeArray(string: string): number[] {
+export function convertToCharCodeArray(string: string): IKeyCode[] {
   // Does this string use an the escape character?
   const usesEscape = containsEscapeCharacter(string);
   // Does this string contain any invalid characters?
@@ -242,4 +243,86 @@ function lookupCharacter(code: number): string {
     default:
       return characterCodeArray[code] || '';
   }
+}
+interface Difference {
+  row: number;
+  col: number;
+  targetValue: IKeyCode;
+}
+
+// A wrapper function that uses findDifferences and createTransitionArrays to
+// generate a set of boards that transition from the starting board to the end
+// state one difference at a time.
+export function createTransitionBoards(
+  startingBoard: BoardCharArray,
+  endingBoard: BoardCharArray
+): BoardCharArray[] {
+  const differences = findDifferences(startingBoard, endingBoard);
+  const transitionBoards = createTransitionArrays(startingBoard, differences);
+  logTransitionBoards(transitionBoards);
+  return transitionBoards;
+}
+// a function that takes an array of transition boards, and logs the string,
+// highlighting the single difference between each board.
+export function logTransitionBoards(transitionBoards: BoardCharArray[]): void {
+  for (const board of transitionBoards) {
+    const boardString = convertBoardLayoutToString(board);
+    console.log(boardString);
+  }
+}
+
+// A find differences function that takes 2 boards and returns an array of
+// boards, each with a single difference between the two boards.
+export function findDifferences(
+  board1: BoardCharArray,
+  board2: BoardCharArray
+): Difference[] {
+  const differences: Difference[] = [];
+  // Loop through the board
+  for (let i = 0; i < board1.length; i++) {
+    // Loop through each row
+    for (let j = 0; j < board1[i].length; j++) {
+      // Check if the value is 0
+      if (board1[i][j] !== board2[i][j]) {
+        // Add the difference to the array
+        differences.push({
+          row: i,
+          col: j,
+          targetValue: board2[i][j],
+        });
+      }
+    }
+  }
+  return differences;
+}
+
+function createTransitionArrays(
+  startingBoard: BoardCharArray,
+  differences: Difference[]
+): BoardCharArray[] {
+  const transitionBoards: BoardCharArray[] = [];
+  // Loop through the differences
+
+  for (const difference of differences) {
+    // we should use the last created transition board as the starting point for
+    // the new difference, if no boards have been created yet, use the
+    // startingBoard
+
+    let newBoard: BoardCharArray;
+
+    if (transitionBoards.length > 0) {
+      newBoard = transitionBoards[transitionBoards.length - 1].map((line) => {
+        return [...line];
+      }) as BoardCharArray;
+    } else {
+      newBoard = startingBoard.map((line) => {
+        return [...line];
+      }) as BoardCharArray;
+    }
+    // Update the value at the difference
+    newBoard[difference.row][difference.col] = difference.targetValue;
+    // Add the new board to the array
+    transitionBoards.push(newBoard);
+  }
+  return transitionBoards;
 }

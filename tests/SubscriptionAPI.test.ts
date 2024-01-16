@@ -10,6 +10,7 @@ import { characterCode } from '../src/values';
 const subscriptionConfig: SubscriptionAPIConfig = {
   apiKey: process.env.SUBSCRIPTION_API_KEY as string,
   apiSecret: process.env.SUBSCRIPTION_API_SECRET as string,
+  mode: VestaboardControlMode.Subscription,
 };
 // let vesta: VestaSubscription;
 

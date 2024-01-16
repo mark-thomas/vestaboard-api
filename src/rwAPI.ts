@@ -80,14 +80,29 @@ class VestaboardRWAPI {
         const response = (error as AxiosError).response;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const errorMessage = (response?.data as any)?.message;
-        console.log(
-          `Error in post message: ${
-            (error as AxiosError).response?.status
-          }: ${errorMessage}`
-        );
-        throw new Error(
-          `Error ${(error as AxiosError).response?.status}: ${errorMessage}`
-        );
+
+        if (
+          response?.status === 304 &&
+          response?.statusText === 'Not Modified'
+        ) {
+          console.log(
+            `Error in post message: Board not modified: ${
+              (error as AxiosError).response?.statusText
+            }`
+          );
+          throw new Error(
+            `Error ${(error as AxiosError).response?.statusText}`
+          );
+        } else {
+          console.log(
+            `Error in post message: ${
+              (error as AxiosError).response?.status
+            }: ${errorMessage}`
+          );
+          throw new Error(
+            `Error ${(error as AxiosError).response?.status}: ${errorMessage}`
+          );
+        }
       } else {
         throw new Error(`Unknown error`);
       }

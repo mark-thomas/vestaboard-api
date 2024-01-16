@@ -7,11 +7,13 @@ import {
   LocalAPIConfig,
   VestaboardControlMode,
   BoardCharArray,
+  VestaboardChar,
 } from '../src/types';
 
 dotenv.config();
 
 const localConfig: LocalAPIConfig = {
+  mode: VestaboardControlMode.Local,
   localIPAddress: process.env.LOCAL_IP_ADDRESS as string,
   localApiKey: process.env.LOCAL_API_KEY as string,
 };
@@ -100,7 +102,7 @@ describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
       Object.keys(characterCode)[
         Math.floor(Math.random() * Object.keys(characterCode).length)
       ];
-    const useChar = characterCode[randomKey]; // Get the number value associated with the random key
+    const useChar = characterCode[randomKey] as VestaboardChar; // Get the number value associated with the random key
     console.log(`useChar: ${useChar}`);
     if (existingBoard) {
       oneBitChange = existingBoard;

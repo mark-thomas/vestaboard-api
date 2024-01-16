@@ -7,6 +7,8 @@ import {
   makeBoard,
   isValidBoard,
   convertBoardLayoutToString,
+  createTransitionBoards,
+  findDifferences,
 } from '../src/sharedFunctions';
 import { BoardCharArray } from '../src/types';
 import { characterCode } from '../src/values';
@@ -25,6 +27,20 @@ const testBoard = [
   [37, 38, 39, 40, 54, 47, 62, 41, 42, 44, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 46, 44, 49, 52, 53, 55, 56, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 19, 16, 1, 3, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+] as BoardCharArray;
+const changedBoard = [
+  [69, 63, 64, 65, 66, 67, 68, 70, 0, 0, 3, 8, 1, 14, 7, 5, 0, 0, 0, 0, 0, 0],
+  [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22,
+  ],
+  [
+    23, 24, 25, 26, 36, 27, 28, 10, 12, 14, 32, 33, 34, 35, 36, 0, 0, 0, 0, 0,
+    0, 0,
+  ],
+  [37, 38, 39, 40, 54, 47, 62, 41, 42, 44, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 46, 44, 49, 52, 53, 55, 56, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 19, 16, 1, 3, 5, 0, 0, 0, 50, 50, 50, 0, 0, 0],
 ] as BoardCharArray;
 
 const testBoardString =
@@ -118,5 +134,20 @@ describe('sharedFunctions', () => {
       const result = convertBoardLayoutToString(testBoard);
       expect(result).toEqual(testBoardString);
     });
+  });
+});
+
+describe('offline createTransitionBoards', () => {
+  it('should create a transition board for a simple board', () => {
+    const result = createTransitionBoards(testBoard, changedBoard);
+    // a test to make sure result is a BoardCharArray[]
+
+    expect(result.length).toBe(12);
+    expect(result[0]).toEqual(expect.any(Array));
+    expect(result[0].length).toBe(6);
+    expect(result[0][0].length).toBe(22);
+    expect(isValidBoard(result[0])).toBe(true);
+    const singleDifference = findDifferences(testBoard, result[0]);
+    expect(singleDifference.length).toBe(1);
   });
 });
