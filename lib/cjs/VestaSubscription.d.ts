@@ -23,4 +23,5 @@ export default class Vesta {
     characterArrayFromString: typeof characterArrayFromString;
     isValidBoard: typeof isValidBoard;
     convertBoardLayoutToString: typeof convertBoardLayoutToString;
+    emptyBoard: BoardCharArray;
 }
