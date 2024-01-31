@@ -148,6 +148,7 @@ class VestaboardRWAPI {
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
   convertBoardLayoutToString = convertBoardLayoutToString;
+  emptyBoard = emptyBoard;
 }
 
 export default VestaboardRWAPI;

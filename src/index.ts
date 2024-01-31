@@ -9,8 +9,13 @@ import {
   VestaboardControlMode,
   BoardCharArray,
   Line,
+  VestaboardLayout,
+  VestaboardChar,
 } from './types';
-
+import {
+  createTransitionBoards,
+  characterArrayFromString,
+} from './sharedFunctions';
 import { characterCode, characterCodeArray } from './values';
 
 export function createVestaboard(
@@ -45,6 +50,10 @@ export {
   SubscriptionAPIConfig,
   RWAPIConfig,
   LocalAPIConfig,
+  VestaboardLayout,
+  VestaboardChar,
+  createTransitionBoards,
+  characterArrayFromString,
 };
 
 //

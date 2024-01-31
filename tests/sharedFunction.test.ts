@@ -53,6 +53,11 @@ describe('sharedFunctions', () => {
       );
       expect(isValidBoard(result)).toBe(true);
     });
+    it('should convert an empty string to an empty board', () => {
+      const result = characterArrayFromString('');
+      expect(isValidBoard(result)).toBe(true);
+      expect(result).toEqual(Array(6).fill(Array(22).fill(0)));
+    });
   });
 
   describe('offline isSpecial', () => {
@@ -84,7 +89,10 @@ describe('sharedFunctions', () => {
       const result = containsNonDisplayCharacter('test^');
       expect(result).toBe(true);
     });
-
+    it('should return false if the input is an empty string - offline', () => {
+      const result = containsNonDisplayCharacter('');
+      expect(result).toBe(false);
+    });
     it('should return false if the input does not contain a non-display character offline', () => {
       const result = containsNonDisplayCharacter('test');
       expect(result).toBe(false);

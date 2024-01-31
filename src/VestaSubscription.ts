@@ -136,4 +136,5 @@ export default class Vesta {
   characterArrayFromString = characterArrayFromString;
   isValidBoard = isValidBoard;
   convertBoardLayoutToString = convertBoardLayoutToString;
+  emptyBoard = emptyBoard;
 }

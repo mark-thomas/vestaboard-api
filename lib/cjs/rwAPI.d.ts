@@ -18,5 +18,6 @@ declare class VestaboardRWAPI {
     characterArrayFromString: typeof characterArrayFromString;
     isValidBoard: typeof isValidBoard;
     convertBoardLayoutToString: typeof convertBoardLayoutToString;
+    emptyBoard: BoardCharArray;
 }
 export default VestaboardRWAPI;
