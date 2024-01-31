@@ -31,7 +31,7 @@ export function containsEscapeCharacter(input: string): boolean {
 //   return input.search(test) < 0; // -1 for no match
 // }
 export function containsNonDisplayCharacter(input: string): boolean {
-  const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]+)$/g;
+  const test = /^(?:[A-Za-z0-9!@#$\(\)\-+&=;:'\"%,./?°\s]*)$/g;
   const result = input.search(test);
   return result < 0; // -1 for no match
 }
