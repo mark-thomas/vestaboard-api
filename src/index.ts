@@ -15,6 +15,7 @@ import {
 import {
   createTransitionBoards,
   characterArrayFromString,
+  convertBoardLayoutToString,
 } from './sharedFunctions';
 import { characterCode, characterCodeArray } from './values';
 
@@ -54,6 +55,7 @@ export {
   VestaboardChar,
   createTransitionBoards,
   characterArrayFromString,
+  convertBoardLayoutToString,
 };
 
 //
