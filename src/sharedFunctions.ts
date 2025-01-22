@@ -255,11 +255,11 @@ interface Difference {
 // state one difference at a time.
 export function createTransitionBoards(
   startingBoard: BoardCharArray,
-  endingBoard: BoardCharArray
+  endingBoard: BoardCharArray, enableLogging:Boolean = false
 ): BoardCharArray[] {
   const differences = findDifferences(startingBoard, endingBoard);
   const transitionBoards = createTransitionArrays(startingBoard, differences);
-  logTransitionBoards(transitionBoards);
+  if (logTransitionBoards) { logTransitionBoards(transitionBoards); }
   return transitionBoards;
 }
 // a function that takes an array of transition boards, and logs the string,
