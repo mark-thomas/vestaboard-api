@@ -259,7 +259,7 @@ export function createTransitionBoards(
 ): BoardCharArray[] {
   const differences = findDifferences(startingBoard, endingBoard);
   const transitionBoards = createTransitionArrays(startingBoard, differences);
-  if (logTransitionBoards) { logTransitionBoards(transitionBoards); }
+  if (enableLogging) { logTransitionBoards(transitionBoards); }
   return transitionBoards;
 }
 // a function that takes an array of transition boards, and logs the string,
