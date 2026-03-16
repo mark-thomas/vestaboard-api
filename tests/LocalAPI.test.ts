@@ -12,6 +12,9 @@ import {
 
 dotenv.config();
 
+const hasLocalConfig =
+  process.env.LOCAL_IP_ADDRESS && process.env.LOCAL_API_KEY;
+
 const localConfig: LocalAPIConfig = {
   mode: VestaboardControlMode.Local,
   localIPAddress: process.env.LOCAL_IP_ADDRESS as string,
@@ -19,7 +22,7 @@ const localConfig: LocalAPIConfig = {
 };
 // // Using the rwConfig we are going to create a test suite similar to the one
 // // above for subscriptions, but using the RW API
-describe('vestaboard local API tests', () => {
+(hasLocalConfig ? describe : describe.skip)('vestaboard local API tests', () => {
   let vestaLocal: VestaLocal;
 
   beforeAll(() => {
@@ -69,7 +72,7 @@ describe('vestaboard local API tests', () => {
   });
 });
 
-describe('vestaboardLocalAPI post tests requiring real key and IP', () => {
+(hasLocalConfig ? describe : describe.skip)('vestaboardLocalAPI post tests requiring real key and IP', () => {
   let vestaLocal: VestaLocal;
   let helloWorld: string;
   let characterHelloWorld: BoardCharArray;
