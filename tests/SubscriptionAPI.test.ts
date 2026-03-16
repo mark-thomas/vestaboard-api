@@ -7,6 +7,9 @@ import { SubscriptionAPIConfig, VestaboardControlMode } from '../src/types';
 
 import { characterCode } from '../src/values';
 
+const hasSubscriptionConfig =
+  process.env.SUBSCRIPTION_API_KEY && process.env.SUBSCRIPTION_API_SECRET;
+
 const subscriptionConfig: SubscriptionAPIConfig = {
   apiKey: process.env.SUBSCRIPTION_API_KEY as string,
   apiSecret: process.env.SUBSCRIPTION_API_SECRET as string,
@@ -14,7 +17,7 @@ const subscriptionConfig: SubscriptionAPIConfig = {
 };
 // let vesta: VestaSubscription;
 
-describe('VestaSubscription tests', () => {
+(hasSubscriptionConfig ? describe : describe.skip)('VestaSubscription tests', () => {
   let vesta: VestaSubscription;
 
   beforeAll(() => {
@@ -78,7 +81,7 @@ describe('VestaSubscription tests', () => {
 
 // ...
 
-describe('VestaSubscription postMessage tests', () => {
+(hasSubscriptionConfig ? describe : describe.skip)('VestaSubscription postMessage tests', () => {
   let vesta: VestaSubscription;
 
   beforeAll(() => {

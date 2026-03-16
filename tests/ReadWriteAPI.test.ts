@@ -8,10 +8,12 @@ import {
   BoardCharArray,
 } from '../src/types';
 
+const hasRWConfig = !!process.env.RW_API_KEY;
+
 const rwConfig = new RWAPIConfig(process.env.RW_API_KEY as string);
 // // Using the rwConfig we are going to create a test suite similar to the one
 // // above for subscriptions, but using the RW API
-describe('vestaboardRWAPI tests', () => {
+(hasRWConfig ? describe : describe.skip)('vestaboardRWAPI tests', () => {
   let vestaRW: VestaRW;
   let helloWorld: string;
   let characterHelloWorld: BoardCharArray;
@@ -57,7 +59,7 @@ describe('vestaboardRWAPI tests', () => {
   });
 });
 
-describe('vestaboardRWAPI post tests with rate limiting', () => {
+(hasRWConfig ? describe : describe.skip)('vestaboardRWAPI post tests with rate limiting', () => {
   let vestaRW: VestaRW;
   let helloWorld: string;
   let characterHelloWorld: BoardCharArray;
